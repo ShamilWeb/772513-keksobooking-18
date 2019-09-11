@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Шамиль Алимсултанов](https://up.htmlacademy.ru/javascript/18/user/772513).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Шамрило](https://htmlacademy.ru/profile/shamrilods).
 
 ---
 
