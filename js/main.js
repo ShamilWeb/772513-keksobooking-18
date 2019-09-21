@@ -1,6 +1,8 @@
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
+var markTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var adСanvas = document.querySelector('.map__pins');
 
 var avatars = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png',];
 var titles = ['Дом', 'Квартира', 'Замок', 'Теремок', 'Шалаш', 'Пещера', 'Хата', 'Дворец'];
@@ -17,6 +19,7 @@ var photoses = [["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o
 var coordinatesX = [100, 140, 250, 360, 180, 430, 330, 290];
 var coordinatesY =[140, 300, 460, 550, 240, 600, 490, 280];
 
+// ----Создает Стрктуру данных---------------------
 var generationArryAdObjects = function () {
 var arrySimilarAds = [];
 for (var i = 0; i < avatars.length; i++) {
@@ -44,4 +47,28 @@ for (var i = 0; i < avatars.length; i++) {
   };
   return arrySimilarAds;
 }
-  console.log(generationArryAdObjects());
+// ///////////////////////////////////////////////
+
+// ----------Вставляет данные в шаблон
+var fillMarkTemplateData = function (Object) {
+  var markElement = markTemplate.cloneNode(true);
+  markElement.querySelector('img').src= Object.author.avatar;
+  markElement.querySelector('img').alt= Object.offer.title;
+  markElement.style.left = Object.location.x + 'px';
+  markElement.style.top = Object.location.y + 'px';
+  return markElement;
+}
+// ////////////////////////////////////////////
+
+// --------------Вставляет готовый шаблон в разметку
+var outputMarks = function () {
+  var arryObjects = generationArryAdObjects();
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < arryObjects.length; i++) {
+    fragment.appendChild(fillMarkTemplateData(arryObjects[i]));
+  }
+  adСanvas.appendChild(fragment);
+};
+// //////////////////////////////////////////////////////
+
+outputMarks();
