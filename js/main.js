@@ -10,6 +10,9 @@ var types = ['palace', 'bungalo', 'flat', 'house'];
 var checkins = ['12:00', '13:00', '14:00'];
 var featureses = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var descriptions = ['aaaaaaaaaaaaaaaaa', 'sssssssssssssssss', 'ddddddddddddddddddd'];
+var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 
 // ----Генерирует случайное число---------------------
 var getRandomNumber = function (min, max) {
@@ -17,18 +20,27 @@ var getRandomNumber = function (min, max) {
 };
 // /////////////////////////////////////////////////////////
 
+// ----Из элементов массива создает новый рандомный массив------------
+var randomArry = function (arry) {
+  var arryClone = arry.sort(function () {
+    return Math.random() - 0.5;
+  }).slice();
+
+  return arryClone.splice(0, getRandomNumber(1, arryClone.length));
+};
+// /////////////////////////////////////////////////////////////////////////
+
 // ----Создает Стрктуру данных---------------------
 var getPins = function () {
-  var pinsList = [];
-  for (var i = 0; i < 8; i++) {
-    var featuresesClone = featureses.sort(function () {
-      return Math.random() - 0.5;
-    }).slice();
-    featuresesClone.splice(0, getRandomNumber(1, featuresesClone.length - 1));
 
+  var pinsList = [];
+
+  for (var i = 0; i < 8; i++) {
+    var photosRandom = randomArry(photos);
+    var featuresesRandom = randomArry(featureses);
     var location = {
-      x: getRandomNumber(0, map.offsetWidth),
-      y: getRandomNumber(130, 630)
+      x: getRandomNumber(0, map.offsetWidth) - (PIN_WIDTH / 2),
+      y: getRandomNumber(130, 630) - PIN_HEIGHT
     };
 
     var pins = {
@@ -44,9 +56,9 @@ var getPins = function () {
         checkin: checkins[getRandomNumber(0, checkins.length - 1)],
         checkout: checkins[getRandomNumber(0, checkins.length - 1)],
         description: descriptions[getRandomNumber(0, descriptions.length - 1)],
-        photos: 'http://o0.github.io/assets/images/tokyo/hotel' + (i + 1) + '.jpg',
+        photos: photosRandom,
         type: types[getRandomNumber(0, types.length - 1)],
-        features: featuresesClone
+        features: featuresesRandom
       },
       location: location
     };
@@ -58,7 +70,7 @@ var getPins = function () {
 // ///////////////////////////////////////////////
 
 // ----------Вставляет данные в шаблон
-var fillMarkTemplateData = function (pin) {
+var getPinElement = function (pin) {
   var markElement = mapPinTemplate.cloneNode(true);
   var img = markElement.querySelector('img');
   img.src = pin.author.avatar;
@@ -74,7 +86,7 @@ var renderPins = function () {
   var pins = getPins();
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < pins.length; i++) {
-    fragment.appendChild(fillMarkTemplateData(pins[i]));
+    fragment.appendChild(getPinElement(pins[i]));
   }
   mapPins.appendChild(fragment);
 };
