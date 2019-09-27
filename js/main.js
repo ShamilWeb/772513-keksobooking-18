@@ -17,6 +17,8 @@ var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var ENTER_KEYCODE = 13;
+var MAP_PIN_WIDTH = 65;
+var MAP_PIN_HEIGHT = 65;
 
 // ----Генерирует случайное число---------------------
 var getRandomNumber = function (min, max) {
@@ -122,7 +124,7 @@ var makesFormInactive = function (nameFuntion) {
 };
 // ///////////////////////////////////////////////////////
 
-makesFormInactive('setAttribute')
+makesFormInactive('setAttribute');
 
 // ------переводит страницу в активное состояние----------------------------
 var activation = function () {
@@ -130,6 +132,7 @@ var activation = function () {
   adForm.classList.remove('ad-form--disabled');
   makesFormInactive('removeAttribute')
   mapFilters.classList.remove('ad-form--disabled');
+  getCoordinatesPin(22);
 }
 // /////////////////////////////////////////////////////////////////
 
@@ -146,3 +149,16 @@ mapPinMain.addEventListener('keydown', function (evt) {
   }
 });
 // ////////////////////////////////////////////////////////////////////////////////
+
+
+var address = document.querySelector('#address');
+var mapPin = document.querySelector('.map__pin');
+
+// -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
+var getCoordinatesPin = function (sharpEnd = 0) {
+  var coordinateX = Math.floor(mapPin.offsetLeft + (MAP_PIN_WIDTH / 2));
+  var coordinateY = Math.floor(mapPin.offsetTop + MAP_PIN_HEIGHT + sharpEnd);
+  address.value = coordinateX + ', ' + coordinateY;
+}
+// /////////////////////////////////////////////////////////////////////////////////////////
+getCoordinatesPin();
