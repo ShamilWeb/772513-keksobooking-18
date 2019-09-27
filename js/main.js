@@ -1,10 +1,13 @@
 'use strict';
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
-
+var fieldset = document.querySelectorAll('fieldset');
+var select = document.querySelectorAll('select');
+var mapPinMain = document.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var mapFilters = document.querySelector('.map__filters');
 var titles = ['Дом', 'Квартира', 'Замок', 'Теремок', 'Шалаш', 'Пещера', 'Хата', 'Дворец'];
 var types = ['palace', 'bungalo', 'flat', 'house'];
 var checkins = ['12:00', '13:00', '14:00'];
@@ -13,6 +16,7 @@ var descriptions = ['aaaaaaaaaaaaaaaaa', 'sssssssssssssssss', 'ddddddddddddddddd
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var ENTER_KEYCODE = 13;
 
 // ----Генерирует случайное число---------------------
 var getRandomNumber = function (min, max) {
@@ -21,7 +25,7 @@ var getRandomNumber = function (min, max) {
 // /////////////////////////////////////////////////////////
 
 // ----Из элементов массива создает новый рандомный массив------------
-var randomArry = function (arry) {
+var getRandomArry = function (arry) {
   var arryClone = arry.sort(function () {
     return Math.random() - 0.5;
   }).slice();
@@ -36,8 +40,8 @@ var getPins = function () {
   var pinsList = [];
 
   for (var i = 0; i < 8; i++) {
-    var photosRandom = randomArry(photos);
-    var featuresesRandom = randomArry(featureses);
+    var photosRandom = getRandomArry(photos);
+    var featuresesRandom = getRandomArry(featureses);
     var location = {
       x: getRandomNumber(0, map.offsetWidth) - (PIN_WIDTH / 2),
       y: getRandomNumber(130, 630) - PIN_HEIGHT
@@ -93,3 +97,52 @@ var renderPins = function () {
 // //////////////////////////////////////////////////////
 
 renderPins();
+
+// --------Делает форму активной и неактивной в зависимости какой аргумент ему передали------------------
+var makesFormInactive = function (nameFuntion) {
+  for(var i = 0; i < fieldset.length; i++) {
+    if ('setAttribute' === nameFuntion) {
+      fieldset[i].setAttribute('disabled', 'disabled');
+    }
+
+    if ('removeAttribute' === nameFuntion) {
+      fieldset[i].removeAttribute('disabled');
+    }
+  }
+
+  for(var i = 0; i < select.length; i++) {
+    if ('setAttribute' === nameFuntion) {
+      select[i].setAttribute('disabled', 'disabled');
+    }
+
+    if ('removeAttribute' === nameFuntion) {
+      select[i].removeAttribute('disabled');
+    }
+  }
+};
+// ///////////////////////////////////////////////////////
+
+makesFormInactive('setAttribute')
+
+// ------переводит страницу в активное состояние----------------------------
+var activation = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  makesFormInactive('removeAttribute')
+  mapFilters.classList.remove('ad-form--disabled');
+}
+// /////////////////////////////////////////////////////////////////
+
+// -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
+mapPinMain.addEventListener('mousedown', function () {
+  activation();
+});
+// //////////////////////////////////////////////////////////////
+
+// -------При нажатии ИНТЕРОМ на кекс в цетре карты, переводит страницу в активное состояние-------------
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activation();
+  }
+});
+// ////////////////////////////////////////////////////////////////////////////////
