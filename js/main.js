@@ -14,6 +14,10 @@ var checkins = ['12:00', '13:00', '14:00'];
 var featureses = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var descriptions = ['aaaaaaaaaaaaaaaaa', 'sssssssssssssssss', 'ddddddddddddddddddd'];
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var address = document.querySelector('#address');
+var mapPin = document.querySelector('.map__pin');
+var roomsNumber = document.querySelector('#room_number');
+var capacitys = document.querySelector('#capacity');
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var ENTER_KEYCODE = 13;
@@ -102,22 +106,22 @@ renderPins();
 
 // --------Делает форму активной и неактивной в зависимости какой аргумент ему передали------------------
 var makesFormInactive = function (nameFuntion) {
-  for(var i = 0; i < fieldset.length; i++) {
-    if ('setAttribute' === nameFuntion) {
+  for (var i = 0; i < fieldset.length; i++) {
+    if (nameFuntion === 'setAttribute') {
       fieldset[i].setAttribute('disabled', 'disabled');
     }
 
-    if ('removeAttribute' === nameFuntion) {
+    if (nameFuntion === 'removeAttribute') {
       fieldset[i].removeAttribute('disabled');
     }
   }
 
-  for(var i = 0; i < select.length; i++) {
-    if ('setAttribute' === nameFuntion) {
+  for (i = 0; i < select.length; i++) {
+    if (nameFuntion === 'setAttribute') {
       select[i].setAttribute('disabled', 'disabled');
     }
 
-    if ('removeAttribute' === nameFuntion) {
+    if (nameFuntion === 'removeAttribute') {
       select[i].removeAttribute('disabled');
     }
   }
@@ -130,10 +134,10 @@ makesFormInactive('setAttribute');
 var activation = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  makesFormInactive('removeAttribute')
+  makesFormInactive('removeAttribute');
   mapFilters.classList.remove('ad-form--disabled');
   getCoordinatesPin(22);
-}
+};
 // /////////////////////////////////////////////////////////////////
 
 // -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
@@ -150,15 +154,48 @@ mapPinMain.addEventListener('keydown', function (evt) {
 });
 // ////////////////////////////////////////////////////////////////////////////////
 
-
-var address = document.querySelector('#address');
-var mapPin = document.querySelector('.map__pin');
-
 // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
-var getCoordinatesPin = function (sharpEnd = 0) {
+var getCoordinatesPin = function (sharpEnd) {
   var coordinateX = Math.floor(mapPin.offsetLeft + (MAP_PIN_WIDTH / 2));
   var coordinateY = Math.floor(mapPin.offsetTop + MAP_PIN_HEIGHT + sharpEnd);
   address.value = coordinateX + ', ' + coordinateY;
-}
+};
 // /////////////////////////////////////////////////////////////////////////////////////////
-getCoordinatesPin();
+
+getCoordinatesPin(0);
+
+// ---------- Определяет какое количество комнат выбрал пользователь---------------------
+var defineNumberRooms = function () {
+  for (var i = 0; i < roomsNumber.options.length; i++) {
+    if (roomsNumber.options[i].selected === true) {
+      var numberRooms = roomsNumber.options[i].value;
+    }
+  }
+  return numberRooms;
+};
+// ///////////////////////////////////////////////////////////////////
+
+// ----------Удаляет атрибут disabled у всех options в склекте гости--------------------------
+var removesDisabledCapacitys = function () {
+  for (var i = 0; i < capacitys.options.length; i++) {
+    capacitys.options[i].removeAttribute('disabled');
+  }
+};
+// ///////////////////////////////////////////////////////////////////////////////
+
+// -----------Добавляет атрибут disabled к определенным options в склекте гости--------------
+var addDisabledCapacitys = function (numberRooms) {
+  for (var i = 0; i < capacitys.options.length; i++) {
+    if (Number(capacitys.options[i].value) > Number(numberRooms)) {
+      capacitys.options[i].setAttribute('disabled', 'disabled');
+    }
+  }
+};
+// ///////////////////////////////////////////////////////////////////////////////////
+
+// -------не дает пользователю выбрать количество гостей больше количества комнат
+roomsNumber.addEventListener('change', function () {
+  removesDisabledCapacitys();
+  addDisabledCapacitys(defineNumberRooms());
+});
+// /////////////////////////////////////////////////////////////////////////////////
