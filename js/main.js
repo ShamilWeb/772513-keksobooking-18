@@ -109,10 +109,10 @@ renderPins();
 // ------переводит страницу в активное состояние----------------------------
 var activationPage = function (isDisabled) {
   if (isDisabled === false) {
-  map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('ad-form--disabled');
-  getCoordinatesPin(DEAD_END_HEIGHT);
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    mapFilters.classList.remove('ad-form--disabled');
+    getCoordinatesPin(DEAD_END_HEIGHT);
   }
   for (var i = 0; i < fieldset.length; i++) {
     fieldset[i].disabled = isDisabled;
@@ -148,7 +148,7 @@ var getCoordinatesPin = function (sharpEnd) {
 };
 // /////////////////////////////////////////////////////////////////////////////////////////
 
-activationPage(true)
+activationPage(true);
 
 getCoordinatesPin();
 
@@ -178,9 +178,9 @@ var addDisabledCapacitys = function (numberRooms) {
       capacitys.options[i].setAttribute('disabled', 'disabled');
     }
     if (MAX_NUMBER_ROOMS === Number(numberRooms)) {
-      for (var i = 0; i < capacitys.options.length; i++) {
-        if (capacitys.options[i].textContent !== 'не для гостей') {
-          capacitys.options[i].setAttribute('disabled', 'disabled');
+      for (var j = 0; j < capacitys.options.length; j++) {
+        if (capacitys.options[j].textContent !== 'не для гостей') {
+          capacitys.options[j].setAttribute('disabled', 'disabled');
         }
       }
     }
