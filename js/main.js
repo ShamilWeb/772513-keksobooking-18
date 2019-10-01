@@ -23,6 +23,8 @@ var PIN_HEIGHT = 70;
 var ENTER_KEYCODE = 13;
 var MAP_PIN_WIDTH = 65;
 var MAP_PIN_HEIGHT = 65;
+var DEAD_END_HEIGHT = 22;
+var MAX_NUMBER_ROOMS = 100;
 
 // ----Генерирует случайное число---------------------
 var getRandomNumber = function (min, max) {
@@ -104,65 +106,51 @@ var renderPins = function () {
 
 renderPins();
 
-// --------Делает форму активной и неактивной в зависимости какой аргумент ему передали------------------
-var makesFormInactive = function (nameFuntion) {
-  for (var i = 0; i < fieldset.length; i++) {
-    if (nameFuntion === 'setAttribute') {
-      fieldset[i].setAttribute('disabled', 'disabled');
-    }
-
-    if (nameFuntion === 'removeAttribute') {
-      fieldset[i].removeAttribute('disabled');
-    }
-  }
-
-  for (i = 0; i < select.length; i++) {
-    if (nameFuntion === 'setAttribute') {
-      select[i].setAttribute('disabled', 'disabled');
-    }
-
-    if (nameFuntion === 'removeAttribute') {
-      select[i].removeAttribute('disabled');
-    }
-  }
-};
-// ///////////////////////////////////////////////////////
-
-makesFormInactive('setAttribute');
-
 // ------переводит страницу в активное состояние----------------------------
-var activation = function () {
+var activationPage = function (isDisabled) {
+  if (isDisabled === false) {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  makesFormInactive('removeAttribute');
   mapFilters.classList.remove('ad-form--disabled');
-  getCoordinatesPin(22);
+  getCoordinatesPin(DEAD_END_HEIGHT);
+  }
+  for (var i = 0; i < fieldset.length; i++) {
+    fieldset[i].disabled = isDisabled;
+  }
+  for (i = 0; i < select.length; i++) {
+    select[i].disabled = isDisabled;
+  }
 };
 // /////////////////////////////////////////////////////////////////
 
 // -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
 mapPinMain.addEventListener('mousedown', function () {
-  activation();
+  activationPage(false);
 });
 // //////////////////////////////////////////////////////////////
 
 // -------При нажатии ИНТЕРОМ на кекс в цетре карты, переводит страницу в активное состояние-------------
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    activation();
+    activationPage(false);
   }
 });
 // ////////////////////////////////////////////////////////////////////////////////
 
 // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
 var getCoordinatesPin = function (sharpEnd) {
+  if (sharpEnd === undefined) {
+    sharpEnd = 0;
+  }
   var coordinateX = Math.floor(mapPin.offsetLeft + (MAP_PIN_WIDTH / 2));
   var coordinateY = Math.floor(mapPin.offsetTop + MAP_PIN_HEIGHT + sharpEnd);
   address.value = coordinateX + ', ' + coordinateY;
 };
 // /////////////////////////////////////////////////////////////////////////////////////////
 
-getCoordinatesPin(0);
+activationPage(true)
+
+getCoordinatesPin();
 
 // ---------- Определяет какое количество комнат выбрал пользователь---------------------
 var defineNumberRooms = function () {
@@ -188,6 +176,13 @@ var addDisabledCapacitys = function (numberRooms) {
   for (var i = 0; i < capacitys.options.length; i++) {
     if (Number(capacitys.options[i].value) > Number(numberRooms)) {
       capacitys.options[i].setAttribute('disabled', 'disabled');
+    }
+    if (MAX_NUMBER_ROOMS === Number(numberRooms)) {
+      for (var i = 0; i < capacitys.options.length; i++) {
+        if (capacitys.options[i].textContent !== 'не для гостей') {
+          capacitys.options[i].setAttribute('disabled', 'disabled');
+        }
+      }
     }
   }
 };
