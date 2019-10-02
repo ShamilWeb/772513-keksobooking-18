@@ -22,8 +22,7 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var ENTER_KEYCODE = 13;
 var MAP_PIN_WIDTH = 65;
-var MAP_PIN_HEIGHT = 65;
-var DEAD_END_HEIGHT = 22;
+var MAP_PIN_HEIGHT = 72;
 var MAX_NUMBER_ROOMS = 100;
 
 // ----Генерирует случайное число---------------------
@@ -104,51 +103,51 @@ var renderPins = function () {
 };
 // //////////////////////////////////////////////////////
 
-renderPins();
-
 // ------переводит страницу в активное состояние----------------------------
-var activationPage = function (isDisabled) {
-  if (isDisabled === false) {
+var activationPage = function (isActive) {
+  if (isActive) {
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     mapFilters.classList.remove('ad-form--disabled');
-    getCoordinatesPin(DEAD_END_HEIGHT);
+  } else {
+    map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    mapFilters.classList.add('ad-form--disabled');
   }
   for (var i = 0; i < fieldset.length; i++) {
-    fieldset[i].disabled = isDisabled;
+    fieldset[i].disabled = !isActive;
   }
   for (i = 0; i < select.length; i++) {
-    select[i].disabled = isDisabled;
+    select[i].disabled = !isActive;
   }
 };
 // /////////////////////////////////////////////////////////////////
 
 // -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
 mapPinMain.addEventListener('mousedown', function () {
-  activationPage(false);
+  activationPage(true);
+  renderPins();
 });
 // //////////////////////////////////////////////////////////////
 
 // -------При нажатии ИНТЕРОМ на кекс в цетре карты, переводит страницу в активное состояние-------------
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    activationPage(false);
+    activationPage(true);
+    renderPins();
   }
 });
 // ////////////////////////////////////////////////////////////////////////////////
 
 // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
-var getCoordinatesPin = function (sharpEnd) {
-  if (sharpEnd === undefined) {
-    sharpEnd = 0;
-  }
+var getCoordinatesPin = function () {
   var coordinateX = Math.floor(mapPin.offsetLeft + (MAP_PIN_WIDTH / 2));
-  var coordinateY = Math.floor(mapPin.offsetTop + MAP_PIN_HEIGHT + sharpEnd);
+  var coordinateY = Math.floor(mapPin.offsetTop + MAP_PIN_HEIGHT);
   address.value = coordinateX + ', ' + coordinateY;
 };
 // /////////////////////////////////////////////////////////////////////////////////////////
 
-activationPage(true);
+activationPage(false);
 
 getCoordinatesPin();
 
@@ -166,7 +165,7 @@ var defineNumberRooms = function () {
 // ----------Удаляет атрибут disabled у всех options в склекте гости--------------------------
 var removesDisabledCapacitys = function () {
   for (var i = 0; i < capacitys.options.length; i++) {
-    capacitys.options[i].removeAttribute('disabled');
+    capacitys.options[i].disabled = false;
   }
 };
 // ///////////////////////////////////////////////////////////////////////////////
@@ -175,22 +174,44 @@ var removesDisabledCapacitys = function () {
 var addDisabledCapacitys = function (numberRooms) {
   for (var i = 0; i < capacitys.options.length; i++) {
     if (Number(capacitys.options[i].value) > Number(numberRooms)) {
-      capacitys.options[i].setAttribute('disabled', 'disabled');
+      capacitys.options[i].disabled = true;
     }
+
     if (MAX_NUMBER_ROOMS === Number(numberRooms)) {
+      capacitys.options[capacitys.options.length - 1].disabled = false;
       for (var j = 0; j < capacitys.options.length; j++) {
         if (capacitys.options[j].textContent !== 'не для гостей') {
-          capacitys.options[j].setAttribute('disabled', 'disabled');
+          capacitys.options[j].disabled = true;
         }
       }
+    } else {
+      capacitys.options[capacitys.options.length - 1].disabled = true;
     }
   }
 };
 // ///////////////////////////////////////////////////////////////////////////////////
 
+// ------Если выбранное количество гостей, после переключения количество комнат, стало недоступным, то данная функция переключает на доступное количество гостей---------------------------
+var switchСapacitys = function () {
+  for (var i = 0; i < capacitys.options.length; i++) {
+    if (capacitys.options[i].selected === true) { // Определяем какой option выбран
+      if (capacitys.options[i].disabled) { // Проверяем у него значение disabled, если tru то выполняем следующи код
+        for (var j = 0; j < capacitys.options.length; j++) {
+          if (capacitys.options[j].disabled === false) { // Здесь находим первый элемент который активен и переходи к нему
+            capacitys.options[j].selected = true;
+            break;
+          }
+        }
+      }
+    }
+  }
+};
+// ///////////////////////////////////////////////////////////////////////////////////////////
+
 // -------не дает пользователю выбрать количество гостей больше количества комнат
 roomsNumber.addEventListener('change', function () {
   removesDisabledCapacitys();
   addDisabledCapacitys(defineNumberRooms());
+  switchСapacitys();
 });
 // /////////////////////////////////////////////////////////////////////////////////
