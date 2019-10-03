@@ -39,7 +39,7 @@
   mapPinMain.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       activationPage(true);
-      renderPins();
+      window.pin.renderPins();
     }
   });
   // ////////////////////////////////////////////////////////////////////////////////
