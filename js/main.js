@@ -154,7 +154,7 @@ getCoordinatesPin();
 // ---------- Определяет какое количество комнат выбрал пользователь---------------------
 var defineNumberRooms = function () {
   for (var i = 0; i < roomsNumber.options.length; i++) {
-    if (roomsNumber.options[i].selected === true) {
+    if (roomsNumber.options[i].selected) {
       var numberRooms = roomsNumber.options[i].value;
     }
   }
@@ -194,10 +194,10 @@ var addDisabledCapacitys = function (numberRooms) {
 // ------Если выбранное количество гостей, после переключения количество комнат, стало недоступным, то данная функция переключает на доступное количество гостей---------------------------
 var switchСapacitys = function () {
   for (var i = 0; i < capacitys.options.length; i++) {
-    if (capacitys.options[i].selected === true) { // Определяем какой option выбран
+    if (capacitys.options[i].selected) { // Определяем какой option выбран
       if (capacitys.options[i].disabled) { // Проверяем у него значение disabled, если tru то выполняем следующи код
         for (var j = 0; j < capacitys.options.length; j++) {
-          if (capacitys.options[j].disabled === false) { // Здесь находим первый элемент который активен и переходи к нему
+          if (!capacitys.options[j].disabled) { // Здесь находим первый элемент который активен и переходи к нему
             capacitys.options[j].selected = true;
             break;
           }
