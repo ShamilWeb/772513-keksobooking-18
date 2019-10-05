@@ -17,8 +17,8 @@
   // ////////////////////////////////////////////
 
   // --------------Вставляет готовый шаблон в разметку
-  window.pin.renderPins = function () {
-    var pins = window.data.getPins();
+  window.pin.renderPins = function (data) {
+    var pins = data;
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < pins.length; i++) {
       fragment.appendChild(getPinElement(pins[i]));
