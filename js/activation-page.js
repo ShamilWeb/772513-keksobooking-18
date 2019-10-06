@@ -48,6 +48,6 @@
 
   window.activation = {
     activationPage: activationPage
-  }
+  };
 
 })();

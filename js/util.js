@@ -10,7 +10,7 @@
     },
     outputErrors: function (errorMessage) {
       var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-      var errorTemplateClone = errorTemplate.cloneNode(true)
+      var errorTemplateClone = errorTemplate.cloneNode(true);
       var errorMessageTpl = errorTemplateClone.querySelector('.error__message');
       var errorButton = errorTemplateClone.querySelector('.error__button');
       var main = document.querySelector('main');
@@ -27,7 +27,7 @@
           errorTemplateClone.remove();
           window.activation.activationPage(false);
         }
-        });
+      });
 
       errorTemplateClone.addEventListener('click', function () {
         errorTemplateClone.remove();
