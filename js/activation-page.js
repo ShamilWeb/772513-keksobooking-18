@@ -31,7 +31,7 @@
   // -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
   mapPinMain.addEventListener('mousedown', function () {
     activationPage(true);
-    window.pin.renderPins();
+    window.backend.load(window.pin.renderPins, window.util.outputErrors);
   });
   // //////////////////////////////////////////////////////////////
 
@@ -39,11 +39,15 @@
   mapPinMain.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       activationPage(true);
-      window.pin.renderPins();
+      window.backend.load(window.pin.renderPins, window.util.outputErrors);
     }
   });
   // ////////////////////////////////////////////////////////////////////////////////
 
   activationPage(false);
+
+  window.activation = {
+    activationPage: activationPage
+  };
 
 })();
