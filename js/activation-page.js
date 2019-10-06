@@ -46,4 +46,8 @@
 
   activationPage(false);
 
+  window.activation = {
+    activationPage: activationPage
+  }
+
 })();
