@@ -10,11 +10,11 @@
         window.selectedTypeHous = housingType.options[i].value;
       }
     }
-  }
+  };
   // ////////////////////////////////////////////////////////////////
 
   housingType.addEventListener('change', function () {
-    getSelectedTypeHous();
+    window.getSelectedTypeHous();
     var mapPins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
     window.pin.renderPins(window.serverData);
     for (var i = 1; i < mapPins.length; i++) {
