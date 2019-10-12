@@ -8,6 +8,10 @@
     getRandomNumber: function (min, max) { // Генерирует случайное число
       return Math.round(min - 0.5 + Math.random() * (max - min + 1));
     },
+    getInactivePage: function (removeErrorTemplate) {
+      removeErrorTemplate.remove();
+      window.activation.activationPage(false);
+    },
     outputErrors: function (errorMessage) {
       var errorTemplate = document.querySelector('#error').content.querySelector('.error');
       var errorTemplateClone = errorTemplate.cloneNode(true);
@@ -18,20 +22,17 @@
       main.prepend(errorTemplateClone);
 
       errorButton.addEventListener('click', function () {
-        errorTemplateClone.remove();
-        window.activation.activationPage(false);
+        window.util.getInactivePage(errorTemplateClone);
       });
 
       document.addEventListener('keydown', function (evt) {
         if (evt.keyCode === window.util.ESC_KEYCODE) {
-          errorTemplateClone.remove();
-          window.activation.activationPage(false);
+          window.util.getInactivePage(errorTemplateClone);
         }
       });
 
       errorTemplateClone.addEventListener('click', function () {
-        errorTemplateClone.remove();
-        window.activation.activationPage(false);
+        window.util.getInactivePage(errorTemplateClone);
       });
 
       errorMessageTpl.addEventListener('click', function (evt) {

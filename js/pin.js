@@ -19,9 +19,10 @@
   // --------------Вставляет готовый шаблон в разметку
   window.pin.renderPins = function (data) {
     var pins = data;
+    var pinsCopy = window.sorting(pins);
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pins.length; i++) {
-      fragment.appendChild(getPinElement(pins[i]));
+    for (var i = 0; i < 5; i++) {
+      fragment.appendChild(getPinElement(pinsCopy[i]));
     }
     mapPins.appendChild(fragment);
   };

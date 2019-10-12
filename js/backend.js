@@ -12,6 +12,7 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
+        window.serverData = xhr.response;
         onLoad(xhr.response);
       } else {
         onError('Ошибка загрузки объявления');
