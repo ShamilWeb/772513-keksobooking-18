@@ -13,7 +13,9 @@
     if (isActive) {
       window.util.map.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
-      mapFilters.classList.remove('ad-form--disabled');
+      window.xhr.addEventListener('load', function () {
+        mapFilters.classList.remove('ad-form--disabled');
+      });
     } else {
       window.util.map.classList.add('map--faded');
       adForm.classList.add('ad-form--disabled');
@@ -25,21 +27,29 @@
     for (i = 0; i < select.length; i++) {
       select[i].disabled = !isActive;
     }
+    if (window.mapPins) {
+      for (i = 1; i < window.mapPins.length; i++) {
+        window.mapPins[i].remove();
+      }
+    }
+    if (document.querySelector('.map__card')) {
+      window.removeDomElement('.map__card');
+    }
   };
   // /////////////////////////////////////////////////////////////////
 
   // -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
   mapPinMain.addEventListener('mousedown', function () {
-    activationPage(true);
     window.backend.load(window.pin.renderPins, window.util.outputErrors);
+    activationPage(true);
   });
   // //////////////////////////////////////////////////////////////
 
   // -------При нажатии ИНТЕРОМ на кекс в цетре карты, переводит страницу в активное состояние-------------
   mapPinMain.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
-      activationPage(true);
       window.backend.load(window.pin.renderPins, window.util.outputErrors);
+      activationPage(true);
     }
   });
   // ////////////////////////////////////////////////////////////////////////////////
