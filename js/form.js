@@ -1,23 +1,28 @@
 'use strict';
 
 (function () {
-  var mapPin = document.querySelector('.map__pin');
   var roomsNumber = document.querySelector('#room_number');
   var capacitys = document.querySelector('#capacity');
-  var address = document.querySelector('#address');
-  var MAP_PIN_WIDTH = 65;
-  var MAP_PIN_HEIGHT = 72;
+  var inputPrice = document.querySelector('#price');
+  var type = document.querySelector('#type');
+  var formReset = document.querySelector('.ad-form__reset');
+  var timein = document.querySelector('#timein');
+  var timeout = document.querySelector('#timeout');
+  var main = document.querySelector('main');
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
+  var successMessage = successTemplate.querySelector('.success__message');
+  var priceMap = {
+    'bungalo': 0,
+    'flat': 1000,
+    'house': 5000,
+    'palace': 10000
+  };
+
+  window.MAP_PIN_WIDTH = 65;
+  window.MAP_PIN_HEIGHT = 72;
   var MAX_NUMBER_ROOMS = 100;
 
-  // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
-  var getCoordinatesPin = function () {
-    var coordinateX = Math.floor(mapPin.offsetLeft + (MAP_PIN_WIDTH / 2));
-    var coordinateY = Math.floor(mapPin.offsetTop + MAP_PIN_HEIGHT);
-    address.value = coordinateX + ', ' + coordinateY;
-  };
-  // /////////////////////////////////////////////////////////////////////////////////////////
-
-  getCoordinatesPin();
+  window.getCoordinatesPin();
 
   // ---------- Определяет какое количество комнат выбрал пользователь---------------------
   var defineNumberRooms = function () {
@@ -76,6 +81,31 @@
   };
   // ///////////////////////////////////////////////////////////////////////////////////////////
 
+  // -----Переводит селек к тому значеению у которого value равняется входному параметру-----------
+  var goValueOption = function (goValue, select) {
+    for (var i = 0; i < select.options.length; i++) {
+      if (select.options[i].value === goValue) {
+        select.options[i].selected = true;
+        break;
+      }
+    }
+  };
+  // ////////////////////////////////////////////////////////////////////////////////////////
+
+  // -----Принимает два селекта. Узнает value активного значения первого селекта и выбирает значение с тем же value у второго селекта-----------
+  var synchronizeSelect = function (select1, select2) {
+    var valueOption = window.getValueOption(select1);
+    goValueOption(valueOption, select2);
+  };
+  // ////////////////////////////////////////////////////////////////////////////////////////
+
+  // -----Получает на вход value выбранного option селека тип жилья и меняет минимальную цену и плейсхолдер-----------
+  var changeValueMin = function (valueInputPrice) {
+    inputPrice.setAttribute('min', priceMap[valueInputPrice]);
+    inputPrice.setAttribute('placeholder', priceMap[valueInputPrice]);
+  };
+  // ////////////////////////////////////////////////////////////////////////////////////////
+
   // -------не дает пользователю выбрать количество гостей больше количества комнат
   roomsNumber.addEventListener('change', function () {
     removesDisabledCapacitys();
@@ -83,5 +113,39 @@
     switchСapacitys();
   });
   // /////////////////////////////////////////////////////////////////////////////////
+
+  // -------Определяет минимальную цену в зависимости от выбранного типа жилья каждый раз, когда значение в селекте type меняется -----------
+  type.addEventListener('change', function () {
+    changeValueMin(window.getValueOption(type));
+  });
+  // /////////////////////////////////////////////////////////////////////////////////
+
+  var onSaveForm = function () {
+    window.activation.activationPage(null, false);
+    main.appendChild(successTemplate);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.util.ESC_KEYCODE) {
+        window.util.getInactivePage(successTemplate);
+      }
+    });
+    successTemplate.addEventListener('click', function () {
+      window.util.getInactivePage(successTemplate);
+    });
+    successMessage.addEventListener('click', function (evt) {
+      evt.stopPropagation();
+    });
+  };
+
+  window.addMyEventListener('#timein', 'change', synchronizeSelect.bind(null, timein, timeout));
+  window.addMyEventListener('#timeout', 'change', synchronizeSelect.bind(null, timeout, timein));
+
+  window.util.form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(window.util.form), onSaveForm, window.util.outputErrors);
+  });
+
+  formReset.addEventListener('click', function () {
+    window.activation.activationPage();
+  });
 
 })();

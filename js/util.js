@@ -2,6 +2,8 @@
 
 (function () {
   window.util = {
+    mapFilters: document.querySelector('.map__filters'),
+    form: document.querySelector('.ad-form'),
     map: document.querySelector('.map'),
     ESC_KEYCODE: 27,
     address: document.querySelector('#address'),
@@ -40,5 +42,15 @@
       });
     },
   };
+
+  window.mapPin = document.querySelector('.map__pin');
+
+  // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
+  window.getCoordinatesPin = function () {
+    var coordinateX = Math.floor(window.mapPin.offsetLeft + (window.MAP_PIN_WIDTH / 2));
+    var coordinateY = Math.floor(window.mapPin.offsetTop + window.MAP_PIN_HEIGHT);
+    window.util.address.value = coordinateX + ', ' + coordinateY;
+  };
+  // /////////////////////////////////////////////////////////////////////////////////////////
 
 })();
