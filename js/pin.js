@@ -32,7 +32,7 @@
   var getCircuit = function (pins, cards, i) {
     pins[i].addEventListener('click', function () {
       removeClass(pins, '.map__pin--active');
-      pins[i].classList.add('.map__pin--active');
+      pins[i].classList.add('map__pin--active');
       if (document.querySelector('.map__card')) {
         window.removeDomElement('.map__card');
       }
@@ -54,7 +54,7 @@
     var pins = data;
     var pinsCopy = window.sorting(pins);
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 5 && i < pinsCopy.length; i++) {
       fragment.appendChild(getPinElement(pinsCopy[i]));
     }
     if (window.mapPins) {

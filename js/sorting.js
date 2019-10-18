@@ -22,11 +22,6 @@
   var getRank = function (advert) {
     var rank = 0;
 
-
-    if (advert.offer.type === window.selectedTypeHous) {
-      rank += 1;
-    }
-
     if (advert.offer.price < PRICE_10000 && window.low) {
       rank += 1;
     }
@@ -64,7 +59,9 @@
   // //////////////////////////////////////////////////////////////////////////
 
   window.sorting = function (arry) {
-    var filterArry = getFilterData(arry);
+    var filterArry = getFilterData(arry).filter(function (el) {
+      return el.offer.type === window.selectedTypeHous || window.selectedTypeHous === 'any';
+    });
     var sortArry = filterArry.slice().sort(function (right, left) {
       var rankDiff = getRank(left) - getRank(right);
       return rankDiff;

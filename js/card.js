@@ -29,10 +29,13 @@
     'conditioner': 'кондиционер'
   };
 
-  // --------удаляет домэлемент----------
+  // --------удаляет домэлемент b класс map__pin--active----------
   window.removeDomElement = function (selector) {
     if (document.querySelector(selector)) {
       document.querySelector(selector).remove();
+    }
+    if (document.querySelector('.map__pin--active')) {
+      document.querySelector('.map__pin--active').classList.remove('map__pin--active');
     }
   };
   // ///////////////////////////////////////

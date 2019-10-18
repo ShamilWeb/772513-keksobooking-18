@@ -39,11 +39,11 @@
         shift.y = -1;
       }
 
-      if (window.mapPinMain.offsetLeft + (window.MAP_PIN_WIDTH / 2) > mapOverlay.clientWidth) {
+      if (window.mapPinMain.offsetLeft + window.MAP_PIN_WIDTH > mapOverlay.clientWidth) {
         shift.x = 1;
       }
 
-      if (window.mapPinMain.offsetLeft < -window.MAP_PIN_WIDTH / 2) {
+      if (window.mapPinMain.offsetLeft < 0) {
         shift.x = -1;
       }
 
