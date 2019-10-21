@@ -32,15 +32,15 @@
       rank += 1;
     }
 
-    if (advert.offer.rooms + '' === window.selectedRooms) {
-      rank += 1;
-    }
-
-    if (advert.offer.guests + '' === window.selectedGuests) {
-      rank += 1;
-    }
-
-    rank += compareArry(window.valueCheckedInputs, advert.offer.features);
+    // if (advert.offer.rooms + '' === window.selectedRooms) {
+    //   rank += 1;
+    // }
+    //
+    // if (advert.offer.guests + '' === window.selectedGuests) {
+    //   rank += 1;
+    // }
+    //
+    // rank += compareArry(window.valueCheckedInputs, advert.offer.features);
 
     return rank;
   };
@@ -60,8 +60,41 @@
 
   window.sorting = function (arry) {
     var filterArry = getFilterData(arry).filter(function (el) {
-      return el.offer.type === window.selectedTypeHous || window.selectedTypeHous === 'any';
+      var returnValue = false;
+
+        var advantage = window.valueCheckedInputs.every(function (e) {
+          var booleanValue = false;
+          for (var i = 0; i < el.offer.features.length; i++) {
+            if (el.offer.features[i] === e) {
+              booleanValue = true;
+            }
+          }
+          return booleanValue
+        });
+
+      if ((el.offer.type === window.selectedTypeHous || window.selectedTypeHous === 'any') &&
+        (el.offer.rooms + '' === window.selectedRooms || window.selectedRooms === 'any') &&
+        (el.offer.guests + '' === window.selectedGuests || window.selectedGuests === 'any') &&
+        advantage &&
+        ((window.selectedPrice === 'any') ||
+        (el.offer.price < PRICE_10000 && window.low) ||
+        (el.offer.price > PRICE_50000 && window.high) ||
+        (el.offer.price >= PRICE_10000 && el.offer.price <= PRICE_50000 && window.middle))
+      ) {
+        returnValue = true;
+      }
+
+
+
+
+      return returnValue;
     });
+
+
+
+
+
+
     var sortArry = filterArry.slice().sort(function (right, left) {
       var rankDiff = getRank(left) - getRank(right);
       return rankDiff;

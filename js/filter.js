@@ -7,6 +7,9 @@
   var housingGuests = document.querySelector('#housing-guests');
   var mapCheckbox = document.querySelectorAll('.map__checkbox');
   window.selectedTypeHous = 'any';
+  window.selectedRooms = 'any';
+  window.selectedGuests = 'any';
+  window.selectedPrice = 'any';
   window.valueCheckedInputs = [];
 
   // ------На вход принимает значение value выбранного option селекта Price---------
@@ -56,6 +59,7 @@
     window.selectedTypeHous = window.getValueOption(housingType);
     window.selectedRooms = window.getValueOption(housingRooms);
     window.selectedGuests = window.getValueOption(housingGuests);
+    window.selectedPrice = window.getValueOption(housingPrice);
     window.valueCheckedInputs = getValueCheckedInputs(mapCheckbox);
     changeValue(window.getValueOption(housingPrice));
     window.debounce(window.pin.renderPins.bind(null, window.serverData));
