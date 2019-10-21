@@ -29,11 +29,17 @@
     'conditioner': 'кондиционер'
   };
 
-  // --------удаляет домэлемент b класс map__pin--active----------
+  // --------удаляет домэлемент----------
   window.removeDomElement = function (selector) {
     if (document.querySelector(selector)) {
       document.querySelector(selector).remove();
     }
+  };
+  // ///////////////////////////////////////
+
+  // --------удаляет домэлемент и класс map__pin--active----------
+  window.removeDomElementAndClass = function (selector) {
+    window.removeDomElement(selector);
     if (document.querySelector('.map__pin--active')) {
       document.querySelector('.map__pin--active').classList.remove('map__pin--active');
     }

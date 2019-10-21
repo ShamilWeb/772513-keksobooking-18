@@ -31,14 +31,14 @@
   // -------Добавляет пинам слушатель клика-----------
   var getCircuit = function (pins, cards, i) {
     pins[i].addEventListener('click', function () {
-      removeClass(pins, '.map__pin--active');
+      removeClass(pins, 'map__pin--active');
       pins[i].classList.add('map__pin--active');
       if (document.querySelector('.map__card')) {
         window.removeDomElement('.map__card');
       }
       window.card.renderCards(cards[i]);
-      window.addMyEventListener('.popup__close', 'click', window.removeDomElement.bind(null, '.map__card'));
-      window.addMyEventListener('.popup__close', 'keydown', window.removeDomElement.bind(null, '.map__card'), 27);
+      window.addMyEventListener('.popup__close', 'click', window.removeDomElementAndClass.bind(null, '.map__card'));
+      window.addMyEventListener('.popup__close', 'keydown', window.removeDomElementAndClass.bind(null, '.map__card'), 27);
     });
   };
 
