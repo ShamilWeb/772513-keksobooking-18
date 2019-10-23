@@ -2,6 +2,8 @@
 
 (function () {
   var mapOverlay = document.querySelector('.map__overlay');
+  var mapPinMainImg = window.mapPinMain.querySelector('img');
+
   var MAX_HEIGHT = 630;
   var MIN_HEIGHT = 130;
   var MAX_WIDTH = mapOverlay.clientWidth;
@@ -9,7 +11,7 @@
   // --------Этот кусок кода отвечает за перетаскивания попапа в окне браузера---------------------
   window.mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-
+    mapPinMainImg.classList.remove('bgNone');
     // -----Кортдинаты мышки в момент нажатии на window.mapPinMain------
     var startCoords = {
       x: evt.clientX,
@@ -32,21 +34,31 @@
       };
       // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      // ---Благодаря тому, что мы можем в зависимость от напрвления мышки получать 1 или -1, мы также можем в зависимости от направления мышки менять top и left нашего пинам
-      window.mapPinMain.style.top = (window.mapPinMain.offsetTop - shift.y) + 'px';
-      window.mapPinMain.style.left = (window.mapPinMain.offsetLeft - shift.x) + 'px';
-      // /////////////////////////////////////////////////////////////////////////////////////////////
-
-      if (window.mapPinMain.offsetTop < MIN_HEIGHT - window.MAP_PIN_HEIGHT) {
-        window.mapPinMain.style.top = (MIN_HEIGHT - window.MAP_PIN_HEIGHT) + 'px';
-      } else if (window.mapPinMain.offsetTop > MAX_HEIGHT - window.MAP_PIN_HEIGHT) {
-        window.mapPinMain.style.top = (MAX_HEIGHT - window.MAP_PIN_HEIGHT) + 'px';
+      var dragX = window.mapPinMain.offsetLeft - shift.x;
+      if (dragX < MIN_WIDTH) {
+        dragX = MIN_WIDTH;
+      } else if (dragX > MAX_WIDTH - window.util.MAP_PIN_WIDTH) {
+        dragX = MAX_WIDTH - window.util.MAP_PIN_WIDTH;
       }
+      window.mapPinMain.style.left = dragX + 'px';
 
-      if (window.mapPinMain.offsetLeft < MIN_WIDTH) {
-        window.mapPinMain.style.left = MIN_WIDTH;
-      } else if (window.mapPinMain.offsetLeft > MAX_WIDTH - window.MAP_PIN_WIDTH) {
-        window.mapPinMain.style.left = (MAX_WIDTH - window.MAP_PIN_WIDTH) + 'px';
+
+      var dragY = window.mapPinMain.offsetTop - shift.y;
+      if (dragY < MIN_HEIGHT - window.util.MAP_PIN_HEIGHT) {
+        dragY = MIN_HEIGHT - window.util.MAP_PIN_HEIGHT;
+      } else if (dragY > MAX_HEIGHT - window.util.MAP_PIN_HEIGHT) {
+        dragY = MAX_HEIGHT - window.util.MAP_PIN_HEIGHT;
+      }
+      window.mapPinMain.style.top = dragY + 'px';
+
+
+      if (moveEvt.clientX < dragX ||
+        moveEvt.clientX > dragX + window.util.MAP_PIN_WIDTH ||
+        moveEvt.clientY < dragY ||
+        moveEvt.clientY > dragY + window.util.MAP_PIN_HEIGHT) {
+
+        document.removeEventListener('mousemove', onMouseMove);
+        mapPinMainImg.classList.add('bgNone');
       }
 
       window.getCoordinatesPin();

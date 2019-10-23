@@ -6,6 +6,8 @@
     form: document.querySelector('.ad-form'),
     map: document.querySelector('.map'),
     ESC_KEYCODE: 27,
+    MAP_PIN_WIDTH: 65,
+    MAP_PIN_HEIGHT: 72,
     address: document.querySelector('#address'),
     getRandomNumber: function (min, max) { // Генерирует случайное число
       return Math.round(min - 0.5 + Math.random() * (max - min + 1));
@@ -47,8 +49,8 @@
 
   // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
   window.getCoordinatesPin = function () {
-    var coordinateX = Math.floor(window.mapPin.offsetLeft + (window.MAP_PIN_WIDTH / 2));
-    var coordinateY = Math.floor(window.mapPin.offsetTop + window.MAP_PIN_HEIGHT);
+    var coordinateX = Math.floor(window.mapPin.offsetLeft + (window.util.MAP_PIN_WIDTH / 2));
+    var coordinateY = Math.floor(window.mapPin.offsetTop + window.util.MAP_PIN_HEIGHT);
     window.util.address.value = coordinateX + ', ' + coordinateY;
   };
   // /////////////////////////////////////////////////////////////////////////////////////////

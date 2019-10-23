@@ -18,8 +18,6 @@
     'palace': 10000
   };
 
-  window.MAP_PIN_WIDTH = 65;
-  window.MAP_PIN_HEIGHT = 72;
   var MAX_NUMBER_ROOMS = 100;
 
   window.getCoordinatesPin();

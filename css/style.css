@@ -223,10 +223,15 @@ fieldset {
           box-shadow: 0 0 15px 15px rgba(255, 86, 53, 0.7);
 }
 
+.bgNone {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
 .map__pin--main {
   width: 65px;
   height: 65px;
-
+  z-index: 2;
   cursor: move;
 }
 
