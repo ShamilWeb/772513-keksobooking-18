@@ -9,6 +9,8 @@
   var timein = document.querySelector('#timein');
   var timeout = document.querySelector('#timeout');
   var main = document.querySelector('main');
+  var inputTitle = document.querySelector('#title');
+  var adFormSubmit = document.querySelector('.ad-form__submit');
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var successMessage = successTemplate.querySelector('.success__message');
   var priceMap = {
@@ -118,6 +120,13 @@
   });
   // /////////////////////////////////////////////////////////////////////////////////
 
+  // -------Удаляет у текстового инпута пробелы-----------
+  var removeSpace = function (textInput) {
+
+  };
+  // /////////////////////////////////////////////////////////////////////////////////
+
+
   var onSaveForm = function () {
     window.activation.activationPage(null, false);
     main.appendChild(successTemplate);
@@ -139,7 +148,15 @@
 
   window.util.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(window.util.form), onSaveForm, window.util.outputErrors);
+    window.backend.save(new FormData(window.util.form), onSaveForm, window.util.outputErrors);console.log('сервер');
+  });
+
+  adFormSubmit.addEventListener('click', function () {
+    inputTitle.value = inputTitle.value.trim();
+    inputTitle.setCustomValidity('');
+    if (inputTitle.value.length < 30) {
+      inputTitle.setCustomValidity('Длина текста не должна быть меньше 30 символов');
+    }
   });
 
   formReset.addEventListener('click', function () {

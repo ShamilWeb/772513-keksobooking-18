@@ -30,7 +30,7 @@
         }
         return booleanValue;
       });
-
+console.log(window.selectedTypeHous);
       if ((el.offer.type === window.selectedTypeHous || window.selectedTypeHous === 'any') &&
         (el.offer.rooms + '' === window.selectedRooms || window.selectedRooms === 'any') &&
         (el.offer.guests + '' === window.selectedGuests || window.selectedGuests === 'any') &&

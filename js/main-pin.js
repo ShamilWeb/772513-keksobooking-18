@@ -3,10 +3,10 @@
 (function () {
   var mapOverlay = document.querySelector('.map__overlay');
   var mapPinMainImg = window.mapPinMain.querySelector('img');
+  var main = document.querySelector('main');
 
   var MAX_HEIGHT = 630;
   var MIN_HEIGHT = 130;
-  var MAX_WIDTH = mapOverlay.clientWidth;
   var MIN_WIDTH = 0;
   // --------Этот кусок кода отвечает за перетаскивания попапа в окне браузера---------------------
   window.mapPinMain.addEventListener('mousedown', function (evt) {
@@ -21,7 +21,7 @@
 
     var onMouseMove = function (moveEvt) { // Это функция будет вызываться каждый раз когда будет двигаться мышка нажавщая элемент "dialogHandler"
       moveEvt.preventDefault();
-
+      var MAX_WIDTH = mapOverlay.clientWidth;
       // ---- При выполнении функции "onMouseMove" эти два объекта способствуют тому, что shift.x и shift.y всегда будут равны 1 или -1, в зависимости куда мышка двигается------------
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -42,7 +42,6 @@
       }
       window.mapPinMain.style.left = dragX + 'px';
 
-
       var dragY = window.mapPinMain.offsetTop - shift.y;
       if (dragY < MIN_HEIGHT - window.util.MAP_PIN_HEIGHT) {
         dragY = MIN_HEIGHT - window.util.MAP_PIN_HEIGHT;
@@ -51,15 +50,15 @@
       }
       window.mapPinMain.style.top = dragY + 'px';
 
-
-      if (moveEvt.clientX < dragX ||
-        moveEvt.clientX > dragX + window.util.MAP_PIN_WIDTH ||
-        moveEvt.clientY < dragY ||
-        moveEvt.clientY > dragY + window.util.MAP_PIN_HEIGHT) {
-
-        document.removeEventListener('mousemove', onMouseMove);
-        mapPinMainImg.classList.add('bgNone');
-      }
+      var moveEvtClientX = moveEvt.clientX - main.offsetLeft;
+      var dragYPageYOffset = dragY - Math.ceil(window.pageYOffset);
+      if (moveEvtClientX < dragX ||
+        moveEvtClientX > dragX + window.util.MAP_PIN_WIDTH ||
+        moveEvt.clientY < dragYPageYOffset ||
+        moveEvt.clientY > dragYPageYOffset + window.util.MAP_PIN_HEIGHT) {
+              document.removeEventListener('mousemove', onMouseMove);
+              mapPinMainImg.classList.add('bgNone');
+            }
 
       window.getCoordinatesPin();
     };
