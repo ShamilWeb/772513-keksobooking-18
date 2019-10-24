@@ -54,17 +54,17 @@
   };
   // ////////////////////////////////////////////////////////////////
 
-  window.getValueFilter = function() {
+  window.getValueFilter = function () {
     window.selectedTypeHous = window.getValueOption(housingType);
     window.selectedRooms = window.getValueOption(housingRooms);
     window.selectedGuests = window.getValueOption(housingGuests);
     window.selectedPrice = window.getValueOption(housingPrice);
     window.valueCheckedInputs = getValueCheckedInputs(mapCheckbox);
-  }
+  };
 
   window.util.mapFilters.addEventListener('change', function () {
     window.removeDomElement('.map__card');
-    getValueFilter();
+    window.getValueFilter();
     changeValue(window.getValueOption(housingPrice));
     window.debounce(window.pin.renderPins.bind(null, window.serverData));
   });

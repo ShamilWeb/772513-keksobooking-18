@@ -47,7 +47,7 @@
         }
       }
     }
-    for (var i = 0; i < fieldset.length; i++) {
+    for (i = 0; i < fieldset.length; i++) {
       fieldset[i].disabled = !isActive;
     }
     for (i = 0; i < select.length; i++) {

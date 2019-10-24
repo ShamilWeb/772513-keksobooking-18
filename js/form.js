@@ -120,13 +120,6 @@
   });
   // /////////////////////////////////////////////////////////////////////////////////
 
-  // -------Удаляет у текстового инпута пробелы-----------
-  var removeSpace = function (textInput) {
-
-  };
-  // /////////////////////////////////////////////////////////////////////////////////
-
-
   var onSaveForm = function () {
     window.activation.activationPage(null, false);
     main.appendChild(successTemplate);
@@ -148,7 +141,7 @@
 
   window.util.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(window.util.form), onSaveForm, window.util.outputErrors);console.log('сервер');
+    window.backend.save(new FormData(window.util.form), onSaveForm, window.util.outputErrors);
   });
 
   adFormSubmit.addEventListener('click', function () {

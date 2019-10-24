@@ -56,9 +56,9 @@
         moveEvtClientX > dragX + window.util.MAP_PIN_WIDTH ||
         moveEvt.clientY < dragYPageYOffset ||
         moveEvt.clientY > dragYPageYOffset + window.util.MAP_PIN_HEIGHT) {
-              document.removeEventListener('mousemove', onMouseMove);
-              mapPinMainImg.classList.add('bgNone');
-            }
+        document.removeEventListener('mousemove', onMouseMove);
+        mapPinMainImg.classList.add('bgNone');
+      }
 
       window.getCoordinatesPin();
     };
