@@ -2,12 +2,10 @@
 
 (function () {
   window.util = {
+    mapPin: document.querySelector('.map__pin'),
     mapFilters: document.querySelector('.map__filters'),
     form: document.querySelector('.ad-form'),
     map: document.querySelector('.map'),
-    ESC_KEYCODE: 27,
-    MAP_PIN_WIDTH: 65,
-    MAP_PIN_HEIGHT: 72,
     address: document.querySelector('#address'),
     getRandomNumber: function (min, max) { // Генерирует случайное число
       return Math.round(min - 0.5 + Math.random() * (max - min + 1));
@@ -30,7 +28,7 @@
       });
 
       document.addEventListener('keydown', function (evt) {
-        if (evt.keyCode === window.util.ESC_KEYCODE) {
+        if (evt.keyCode === window.constants.ESC_KEYCODE) {
           window.util.getInactivePage(errorTemplateClone);
         }
       });
@@ -43,16 +41,36 @@
         evt.stopPropagation();
       });
     },
+    getCoordinatesPin: function () { // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса-------
+      var coordinateX = Math.floor(window.util.mapPin.offsetLeft + (window.constants.MAP_PIN_WIDTH / 2));
+      var coordinateY = Math.floor(window.util.mapPin.offsetTop + window.constants.MAP_PIN_HEIGHT);
+      window.util.address.value = coordinateX + ', ' + coordinateY;
+    },
+    removeDomElement: function (selector) { // --------удаляет домэлемент----------
+      if (document.querySelector(selector)) {
+        document.querySelector(selector).remove();
+      }
+    },
+    removeDomElementAndClass: function (selector) { // --------удаляет домэлемент и класс map__pin--active---------
+      window.util.removeDomElement(selector);
+      if (document.querySelector('.map__pin--active')) {
+        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+      }
+    },
+    addEventListenerKeydown: function (selector, fact, callback, keyNamber) { // -------Добавляет слушатель на дом элементы------------------
+      var domElement = document.querySelectorAll(selector);
+      if (fact !== 'keydown') {
+        for (var i = 0; i < domElement.length; i++) {
+          domElement[i].addEventListener(fact, callback);
+        }
+      } else {
+        document.addEventListener(fact, function (evt) {
+          if (evt.keyCode === keyNamber) {
+            callback();
+          }
+        });
+      }
+    }
   };
-
-  window.mapPin = document.querySelector('.map__pin');
-
-  // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса------------------
-  window.getCoordinatesPin = function () {
-    var coordinateX = Math.floor(window.mapPin.offsetLeft + (window.util.MAP_PIN_WIDTH / 2));
-    var coordinateY = Math.floor(window.mapPin.offsetTop + window.util.MAP_PIN_HEIGHT);
-    window.util.address.value = coordinateX + ', ' + coordinateY;
-  };
-  // /////////////////////////////////////////////////////////////////////////////////////////
 
 })();

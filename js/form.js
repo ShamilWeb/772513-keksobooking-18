@@ -22,7 +22,7 @@
 
   var MAX_NUMBER_ROOMS = 100;
 
-  window.getCoordinatesPin();
+  window.util.getCoordinatesPin();
 
   // ---------- Определяет какое количество комнат выбрал пользователь---------------------
   var defineNumberRooms = function () {
@@ -94,7 +94,7 @@
 
   // -----Принимает два селекта. Узнает value активного значения первого селекта и выбирает значение с тем же value у второго селекта-----------
   var synchronizeSelect = function (select1, select2) {
-    var valueOption = window.getValueOption(select1);
+    var valueOption = window.filter.getValueOption(select1);
     goValueOption(valueOption, select2);
   };
   // ////////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@
 
   // -------Определяет минимальную цену в зависимости от выбранного типа жилья каждый раз, когда значение в селекте type меняется -----------
   type.addEventListener('change', function () {
-    changeValueMin(window.getValueOption(type));
+    changeValueMin(window.filter.getValueOption(type));
   });
   // /////////////////////////////////////////////////////////////////////////////////
 
@@ -124,7 +124,7 @@
     window.activation.activationPage(null, false);
     main.appendChild(successTemplate);
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.ESC_KEYCODE) {
+      if (evt.keyCode === window.constants.ESC_KEYCODE) {
         window.util.getInactivePage(successTemplate);
       }
     });
@@ -136,8 +136,8 @@
     });
   };
 
-  window.addMyEventListener('#timein', 'change', synchronizeSelect.bind(null, timein, timeout));
-  window.addMyEventListener('#timeout', 'change', synchronizeSelect.bind(null, timeout, timein));
+  window.util.addEventListenerKeydown('#timein', 'change', synchronizeSelect.bind(null, timein, timeout));
+  window.util.addEventListenerKeydown('#timeout', 'change', synchronizeSelect.bind(null, timeout, timein));
 
   window.util.form.addEventListener('submit', function (evt) {
     evt.preventDefault();

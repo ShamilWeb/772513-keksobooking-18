@@ -34,11 +34,11 @@
       removeClass(pins, 'map__pin--active');
       pins[i].classList.add('map__pin--active');
       if (document.querySelector('.map__card')) {
-        window.removeDomElement('.map__card');
+        window.util.removeDomElement('.map__card');
       }
       window.card.renderCards(cards[i]);
-      window.addMyEventListener('.popup__close', 'click', window.removeDomElementAndClass.bind(null, '.map__card'));
-      window.addMyEventListener('.popup__close', 'keydown', window.removeDomElementAndClass.bind(null, '.map__card'), 27);
+      window.util.addEventListenerKeydown('.popup__close', 'click', window.util.removeDomElementAndClass.bind(null, '.map__card'));
+      window.util.addEventListenerKeydown('.popup__close', 'keydown', window.util.removeDomElementAndClass.bind(null, '.map__card'), 27);
     });
   };
 
@@ -57,14 +57,14 @@
     for (var i = 0; i < 5 && i < pinsCopy.length; i++) {
       fragment.appendChild(getPinElement(pinsCopy[i]));
     }
-    if (window.mapPins) {
-      for (i = 1; i < window.mapPins.length; i++) {
-        window.mapPins[i].remove();
+    if (window.util.mapPins) {
+      for (i = 1; i < window.util.mapPins.length; i++) {
+        window.util.mapPins[i].remove();
       }
     }
     mapPins.appendChild(fragment);
-    window.mapPins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
-    pins = Array.from(window.mapPins);
+    window.util.mapPins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
+    pins = Array.from(window.util.mapPins);
     pins.shift();
     addEventListenerPins(pins, pinsCopy);
   };

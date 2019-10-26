@@ -21,7 +21,7 @@
             mapFilters.classList.remove('ad-form--disabled');
           });
         }
-        window.getValueFilter();
+        window.filter.getValueFilter();
       }
     } else {
       if (document.querySelector('.ad-form__photo').querySelector('img')) {
@@ -37,7 +37,7 @@
       window.mapPinMain.style.left = PIN_LEFT;
       window.util.form.reset();
       window.util.mapFilters.reset();
-      window.getCoordinatesPin();
+      window.util.getCoordinatesPin();
       window.util.map.classList.add('map--faded');
       adForm.classList.add('ad-form--disabled');
       mapFilters.classList.add('ad-form--disabled');

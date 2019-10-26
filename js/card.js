@@ -29,40 +29,6 @@
     'conditioner': 'кондиционер'
   };
 
-  // --------удаляет домэлемент----------
-  window.removeDomElement = function (selector) {
-    if (document.querySelector(selector)) {
-      document.querySelector(selector).remove();
-    }
-  };
-  // ///////////////////////////////////////
-
-  // --------удаляет домэлемент и класс map__pin--active----------
-  window.removeDomElementAndClass = function (selector) {
-    window.removeDomElement(selector);
-    if (document.querySelector('.map__pin--active')) {
-      document.querySelector('.map__pin--active').classList.remove('map__pin--active');
-    }
-  };
-  // ///////////////////////////////////////
-
-  // -------Добавляет слушатель на дом элементы------------------
-  window.addMyEventListener = function (selector, fact, callback, keyNamber) {
-    var domElement = document.querySelectorAll(selector);
-    if (fact !== 'keydown') {
-      for (var i = 0; i < domElement.length; i++) {
-        domElement[i].addEventListener(fact, callback);
-      }
-    } else {
-      document.addEventListener(fact, function (evt) {
-        if (evt.keyCode === keyNamber) {
-          callback();
-        }
-      });
-    }
-  };
-  // ////////////////////////////////////////////////////////////////
-
   // ----------Вставляет данные в шаблон Card------
   window.getCardElement = function (card) {
     var cardElement = mapCardTemplate.cloneNode(true);

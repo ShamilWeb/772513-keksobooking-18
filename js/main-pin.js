@@ -35,32 +35,43 @@
       // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       var dragX = window.mapPinMain.offsetLeft - shift.x;
-      if (dragX < MIN_WIDTH) {
-        dragX = MIN_WIDTH;
-      } else if (dragX > MAX_WIDTH - window.util.MAP_PIN_WIDTH) {
-        dragX = MAX_WIDTH - window.util.MAP_PIN_WIDTH;
-      }
-      window.mapPinMain.style.left = dragX + 'px';
+      // if (dragX < MIN_WIDTH) {
+      //   dragX = MIN_WIDTH;
+      // } else if (dragX > MAX_WIDTH - window.util.MAP_PIN_WIDTH) {
+      //   dragX = MAX_WIDTH - window.util.MAP_PIN_WIDTH;
+      // }
+      // window.mapPinMain.style.left = dragX + 'px';
 
       var dragY = window.mapPinMain.offsetTop - shift.y;
-      if (dragY < MIN_HEIGHT - window.util.MAP_PIN_HEIGHT) {
-        dragY = MIN_HEIGHT - window.util.MAP_PIN_HEIGHT;
-      } else if (dragY > MAX_HEIGHT - window.util.MAP_PIN_HEIGHT) {
-        dragY = MAX_HEIGHT - window.util.MAP_PIN_HEIGHT;
-      }
-      window.mapPinMain.style.top = dragY + 'px';
+      // if (dragY < MIN_HEIGHT - window.util.MAP_PIN_HEIGHT) {
+      //   dragY = MIN_HEIGHT - window.util.MAP_PIN_HEIGHT;
+      // } else if (dragY > MAX_HEIGHT - window.util.MAP_PIN_HEIGHT) {
+      //   dragY = MAX_HEIGHT - window.util.MAP_PIN_HEIGHT;
+      // }
+      // window.mapPinMain.style.top = dragY + 'px';
 
       var moveEvtClientX = moveEvt.clientX - main.offsetLeft;
       var dragYPageYOffset = dragY - Math.ceil(window.pageYOffset);
-      if (moveEvtClientX < dragX ||
-        moveEvtClientX > dragX + window.util.MAP_PIN_WIDTH ||
-        moveEvt.clientY < dragYPageYOffset ||
-        moveEvt.clientY > dragYPageYOffset + window.util.MAP_PIN_HEIGHT) {
-        document.removeEventListener('mousemove', onMouseMove);
-        mapPinMainImg.classList.add('bgNone');
+      if (moveEvtClientX > dragX &&
+        moveEvtClientX < dragX + window.constants.MAP_PIN_WIDTH &&
+        moveEvt.clientY > dragYPageYOffset &&
+        moveEvt.clientY < dragYPageYOffset + window.constants.MAP_PIN_HEIGHT) {
+        if (dragX < MIN_WIDTH) {
+          dragX = MIN_WIDTH;
+        } else if (dragX > MAX_WIDTH - window.constants.MAP_PIN_WIDTH) {
+          dragX = MAX_WIDTH - window.constants.MAP_PIN_WIDTH;
+        }
+        window.mapPinMain.style.left = dragX + 'px';
+
+        if (dragY < MIN_HEIGHT - window.constants.MAP_PIN_HEIGHT) {
+          dragY = MIN_HEIGHT - window.constants.MAP_PIN_HEIGHT;
+        } else if (dragY > MAX_HEIGHT - window.constants.MAP_PIN_HEIGHT) {
+          dragY = MAX_HEIGHT - window.constants.MAP_PIN_HEIGHT;
+        }
+        window.mapPinMain.style.top = dragY + 'px';
       }
 
-      window.getCoordinatesPin();
+      window.util.getCoordinatesPin();
     };
 
     var onMouseUp = function (upEvt) {
