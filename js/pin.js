@@ -16,27 +16,17 @@
   };
   // ////////////////////////////////////////////
 
-  // -------На ввход принимает массив Дом элементов, у которых нужно удалить определенный класс и принимает сам удаляемый класс----
-  var removeClass = function (arryHtmlElement, classElement) {
-    for (var i = 0; i < arryHtmlElement.length; i++) {
-      for (var j = 0; j < arryHtmlElement[i].classList.length; j++) {
-        if (arryHtmlElement[i].classList[j] === classElement) {
-          arryHtmlElement[i].classList.remove(classElement);
-        }
-      }
-    }
-  };
-  // ///////////////////////////////////////////////////////////////////////////////////////////////////
-
   // -------Добавляет пинам слушатель клика-----------
-  var getCircuit = function (pins, cards, i) {
-    pins[i].addEventListener('click', function () {
-      removeClass(pins, 'map__pin--active');
-      pins[i].classList.add('map__pin--active');
+  var getCircuit = function (pins, cards) {
+    pins.addEventListener('click', function () {
+      if(document.querySelector('.map__pin--active')) {
+        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+      }
+      pins.classList.add('map__pin--active');
       if (document.querySelector('.map__card')) {
         window.util.removeDomElement('.map__card');
       }
-      window.card.renderCards(cards[i]);
+      window.card.renderCards(cards);
       window.util.addEventListenerKeydown('.popup__close', 'click', window.util.removeDomElementAndClass.bind(null, '.map__card'));
       window.util.addEventListenerKeydown('.popup__close', 'keydown', window.util.removeDomElementAndClass.bind(null, '.map__card'), 27);
     });
@@ -44,7 +34,7 @@
 
   var addEventListenerPins = function (pins, cards) {
     for (var i = 0; i < pins.length; i++) {
-      getCircuit(pins, cards, i);
+      getCircuit(pins[i], cards[i]);
     }
   };
   // ///////////////////////////////////////////////
@@ -57,7 +47,7 @@
     for (var i = 0; i < 5 && i < pinsCopy.length; i++) {
       fragment.appendChild(getPinElement(pinsCopy[i]));
     }
-    if (window.util.mapPins) {
+    if (window.util.mapPins) {console.log(window.util.mapPins);
       for (i = 1; i < window.util.mapPins.length; i++) {
         window.util.mapPins[i].remove();
       }
@@ -67,6 +57,9 @@
     pins = Array.from(window.util.mapPins);
     pins.shift();
     addEventListenerPins(pins, pinsCopy);
+    if (window.xhr) {
+      window.util.mapFilters.classList.remove('ad-form--disabled');
+    }
   };
   // //////////////////////////////////////////////////////
 
