@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var MAX_OUTPUT_PIN = 5;
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = document.querySelector('.map__pins');
 
@@ -19,7 +20,7 @@
   // -------Добавляет пинам слушатель клика-----------
   var getCircuit = function (pins, cards) {
     pins.addEventListener('click', function () {
-      if(document.querySelector('.map__pin--active')) {
+      if (document.querySelector('.map__pin--active')) {
         document.querySelector('.map__pin--active').classList.remove('map__pin--active');
       }
       pins.classList.add('map__pin--active');
@@ -30,36 +31,40 @@
       window.util.addEventListenerKeydown('.popup__close', 'click', window.util.removeDomElementAndClass.bind(null, '.map__card'));
       window.util.addEventListenerKeydown('.popup__close', 'keydown', window.util.removeDomElementAndClass.bind(null, '.map__card'), 27);
     });
+    return pins;
   };
 
-  var addEventListenerPins = function (pins, cards) {
-    for (var i = 0; i < pins.length; i++) {
-      getCircuit(pins[i], cards[i]);
+  var addEventListenerPins = function (pin, cards) {
+    return getCircuit(pin, cards);
+  };
+
+  // ------------Удаляет пины--------------------
+  var removeMapPin = function () {
+    var pins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
+    if (pins) {
+      for (var i = 1; i < pins.length; i++) {
+        pins[i].remove();
+      }
     }
   };
-  // ///////////////////////////////////////////////
+  // /////////////////////////////////////////////////
 
   // --------Вставляет готовый шаблон в разметку--------
   window.pin.renderPins = function (data) {
-    var pins = data;
-    var pinsCopy = window.sorting(pins);
+    var pinsData = window.sorting(data);
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 5 && i < pinsCopy.length; i++) {
-      fragment.appendChild(getPinElement(pinsCopy[i]));
+
+    for (var i = 0; i < MAX_OUTPUT_PIN && i < pinsData.length; i++) {
+      var pin = getPinElement(pinsData[i]);
+      pin = addEventListenerPins(pin, pinsData[i]);
+      fragment.appendChild(pin);
     }
-    if (window.util.mapPins) {console.log(window.util.mapPins);
-      for (i = 1; i < window.util.mapPins.length; i++) {
-        window.util.mapPins[i].remove();
-      }
-    }
+
+    removeMapPin();
+
     mapPins.appendChild(fragment);
-    window.util.mapPins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
-    pins = Array.from(window.util.mapPins);
-    pins.shift();
-    addEventListenerPins(pins, pinsCopy);
-    if (window.xhr) {
-      window.util.mapFilters.classList.remove('ad-form--disabled');
-    }
+
+    window.element.mapFilters.classList.remove('ad-form--disabled');
   };
   // //////////////////////////////////////////////////////
 

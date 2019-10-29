@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAX_NUMBER_ROOMS = 100;
+  var MIN_TEXT = 30;
   var roomsNumber = document.querySelector('#room_number');
   var capacitys = document.querySelector('#capacity');
   var inputPrice = document.querySelector('#price');
@@ -19,8 +21,6 @@
     'house': 5000,
     'palace': 10000
   };
-
-  var MAX_NUMBER_ROOMS = 100;
 
   window.util.getCoordinatesPin();
 
@@ -93,7 +93,7 @@
   // ////////////////////////////////////////////////////////////////////////////////////////
 
   // -----Принимает два селекта. Узнает value активного значения первого селекта и выбирает значение с тем же value у второго селекта-----------
-  var synchronizeSelect = function (select1, select2) {
+  var changeSelect = function (select1, select2) {
     var valueOption = window.filter.getValueOption(select1);
     goValueOption(valueOption, select2);
   };
@@ -120,14 +120,17 @@
   });
   // /////////////////////////////////////////////////////////////////////////////////
 
+  var onDisabledPage = function (evt) {
+    if (evt.keyCode === window.constants.ESC_KEYCODE) {
+      window.util.getInactivePage(successTemplate);
+      document.removeEventListener('keydown', onDisabledPage);
+    }
+  };
+
   var onSaveForm = function () {
     window.activation.activationPage(null, false);
     main.appendChild(successTemplate);
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.constants.ESC_KEYCODE) {
-        window.util.getInactivePage(successTemplate);
-      }
-    });
+    document.addEventListener('keydown', onDisabledPage);
     successTemplate.addEventListener('click', function () {
       window.util.getInactivePage(successTemplate);
     });
@@ -136,18 +139,18 @@
     });
   };
 
-  window.util.addEventListenerKeydown('#timein', 'change', synchronizeSelect.bind(null, timein, timeout));
-  window.util.addEventListenerKeydown('#timeout', 'change', synchronizeSelect.bind(null, timeout, timein));
+  window.util.addEventListenerKeydown('#timein', 'change', changeSelect.bind(null, timein, timeout));
+  window.util.addEventListenerKeydown('#timeout', 'change', changeSelect.bind(null, timeout, timein));
 
-  window.util.form.addEventListener('submit', function (evt) {
+  window.element.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(window.util.form), onSaveForm, window.util.outputErrors);
+    window.backend.save(new FormData(window.element.form), onSaveForm, window.util.outputErrors);
   });
 
   adFormSubmit.addEventListener('click', function () {
     inputTitle.value = inputTitle.value.trim();
     inputTitle.setCustomValidity('');
-    if (inputTitle.value.length < 30) {
+    if (inputTitle.value.length < MIN_TEXT) {
       inputTitle.setCustomValidity('Длина текста не должна быть меньше 30 символов');
     }
   });

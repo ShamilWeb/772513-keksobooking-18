@@ -1,19 +1,21 @@
 'use strict';
 
 (function () {
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var IMG_WIDTH = 70;
+  var IMG_HEIGHT = 70;
   var fileChooser = document.querySelector('.ad-form__field').querySelector('input');
   window.preview = document.querySelector('.ad-form-header__preview').querySelector('img');
   var fileUpload = document.querySelector('.ad-form__upload').querySelector('input');
   var formPhoto = document.querySelector('.ad-form__photo');
   var photoContainer = document.querySelector('.ad-form__photo-container');
-  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   // ---------Вставляет img тег. attributeSrc-принимает значение атрибута src. pasteHere-определяет в куда будет ставлен img----------
   var insertImg = function (attributeSrc, pasteHere) {
     var elementImg = document.createElement('img');
     elementImg.src = attributeSrc;
-    elementImg.width = 70;
-    elementImg.height = 70;
+    elementImg.width = IMG_WIDTH;
+    elementImg.height = IMG_HEIGHT;
     var formPhotoCopy = formPhoto.cloneNode(true);
     formPhotoCopy.appendChild(elementImg);
     pasteHere.insertBefore(formPhotoCopy, document.querySelector('.ad-form__photo'));

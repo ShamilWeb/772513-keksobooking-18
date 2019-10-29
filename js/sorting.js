@@ -18,44 +18,44 @@
 
   // ---------Проверяет объявление на соответствие типа жилья-------------
   var checkType = function (el) {
-      var booleanValue = false;
-      if(el.offer.type === window.filter.selectedTypeHous || window.filter.selectedTypeHous === 'any') {
-        booleanValue = true;
-      }
-      return booleanValue;
+    var booleanValue = false;
+    if (el.offer.type === window.filter.selectedTypeHous || window.filter.selectedTypeHous === 'any') {
+      booleanValue = true;
+    }
+    return booleanValue;
   };
   // ////////////////////////////////////////////////////////////////////////
 
   // ---------Проверяет объявление на соответствие количества комнат-------------
   var checkRooms = function (el) {
-      var booleanValue = false;
-      if(el.offer.rooms + '' === window.filter.selectedRooms || window.filter.selectedRooms === 'any') {
-        booleanValue = true;
-      }
-      return booleanValue;
+    var booleanValue = false;
+    if (el.offer.rooms + '' === window.filter.selectedRooms || window.filter.selectedRooms === 'any') {
+      booleanValue = true;
+    }
+    return booleanValue;
   };
   // ////////////////////////////////////////////////////////////////////////
 
   // ---------Проверяет объявление на соответствие количества гостей-------------
   var checkGuests = function (el) {
-      var booleanValue = false;
-      if(el.offer.guests + '' === window.filter.selectedGuests || window.filter.selectedGuests === 'any') {
-        booleanValue = true;
-      }
-      return booleanValue;
+    var booleanValue = false;
+    if (el.offer.guests + '' === window.filter.selectedGuests || window.filter.selectedGuests === 'any') {
+      booleanValue = true;
+    }
+    return booleanValue;
   };
   // ////////////////////////////////////////////////////////////////////////
 
   // ---------Проверяет объявление на соответствие цены-------------
   var checkPrice = function (el) {
-      var booleanValue = false;
-      if(((window.filter.selectedPrice === 'any') ||
-      (el.offer.price < PRICE_LOW && window.low) ||
-      (el.offer.price > PRICE_HIGH && window.high) ||
-      (el.offer.price >= PRICE_LOW && el.offer.price <= PRICE_HIGH && window.middle))) {
-        booleanValue = true;
-      }
-      return booleanValue;
+    var booleanValue = false;
+    if (((window.filter.selectedPrice === 'any') ||
+    (el.offer.price < PRICE_LOW && window.filter.low) ||
+    (el.offer.price > PRICE_HIGH && window.filter.high) ||
+    (el.offer.price >= PRICE_LOW && el.offer.price <= PRICE_HIGH && window.filter.middle))) {
+      booleanValue = true;
+    }
+    return booleanValue;
   };
   // ////////////////////////////////////////////////////////////////////////
 
@@ -76,10 +76,10 @@
   window.sorting = function (arry) {
     var filterArry = getFilterData(arry).filter(function (el) {
 
-      var type= checkType(el);
-      var price= checkPrice(el);
-      var rooms= checkRooms(el);
-      var guests= checkGuests(el);
+      var type = checkType(el);
+      var price = checkPrice(el);
+      var rooms = checkRooms(el);
+      var guests = checkGuests(el);
       var features = checkFeatures(el);
 
       return type && price && rooms && guests && features;

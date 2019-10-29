@@ -30,7 +30,7 @@
   };
 
   // ----------Вставляет данные в шаблон Card------
-  window.getCardElement = function (card) {
+  var getCardElement = function (card) {
     var cardElement = mapCardTemplate.cloneNode(true);
     var popupTitle = cardElement.querySelector('.popup__title');
     var popupTextAddress = cardElement.querySelector('.popup__text--address');
@@ -81,7 +81,7 @@
   window.card.renderCards = function (data) {
     var card = data;
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(window.getCardElement(card));
+    fragment.appendChild(getCardElement(card));
     map.appendChild(fragment);
   };
   // //////////////////////////////////////////////////////
