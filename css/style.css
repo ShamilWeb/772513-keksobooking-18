@@ -59,7 +59,7 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 body {
@@ -223,10 +223,15 @@ fieldset {
           box-shadow: 0 0 15px 15px rgba(255, 86, 53, 0.7);
 }
 
+.bgNone {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
 .map__pin--main {
   width: 65px;
   height: 65px;
-
+  z-index: 2;
   cursor: move;
 }
 
@@ -1170,7 +1175,7 @@ fieldset {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 5;
 
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
