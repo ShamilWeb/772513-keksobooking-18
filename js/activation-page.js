@@ -4,7 +4,6 @@
   var ENTER_KEYCODE = 13;
   var PIN_TOP = '375px';
   var PIN_LEFT = '570px';
-  var ONE = 1;
   var fieldsets = document.querySelectorAll('fieldset');
   var selects = document.querySelectorAll('select');
   var adForm = document.querySelector('.ad-form');
@@ -25,7 +24,7 @@
     } else {
       if (document.querySelector('.ad-form__photo').querySelector('img')) {
         var adFormPhotos = document.querySelectorAll('.ad-form__photo');
-        for (var i = 0; i < adFormPhotos.length - ONE; i++) {
+        for (var i = 0; i < adFormPhotos.length - 1; i++) {
           adFormPhotos[i].remove();
         }
       }

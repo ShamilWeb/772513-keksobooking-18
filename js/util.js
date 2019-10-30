@@ -21,7 +21,6 @@
       var errorMessageTpl = window.util.errorTemplateClone.querySelector('.error__message');
       var errorButton = window.util.errorTemplateClone.querySelector('.error__button');
       var main = document.querySelector('main');
-      errorMessageTpl.textContent = errorMessage;
       main.prepend(window.util.errorTemplateClone);
 
       errorButton.addEventListener('click', function () {
