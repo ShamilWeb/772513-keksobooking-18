@@ -5,7 +5,6 @@
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = document.querySelector('.map__pins');
 
-  // ----------Вставляет данные в шаблон
   var getPinElement = function (pin) {
     var markElement = mapPinTemplate.cloneNode(true);
     var img = markElement.querySelector('img');
@@ -15,9 +14,7 @@
     markElement.style.top = pin.location.y + 'px';
     return markElement;
   };
-  // ////////////////////////////////////////////
 
-  // -------Добавляет пинам слушатель клика-----------
   var getCircuit = function (pins, cards) {
     pins.addEventListener('click', function () {
       if (document.querySelector('.map__pin--active')) {
@@ -38,7 +35,6 @@
     return getCircuit(pin, cards);
   };
 
-  // ------------Удаляет пины--------------------
   var removeMapPin = function () {
     var pins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
     if (pins) {
@@ -47,9 +43,7 @@
       }
     }
   };
-  // /////////////////////////////////////////////////
 
-  // --------Вставляет готовый шаблон в разметку--------
   window.pin.renderPins = function (data) {
     var pinsData = window.sorting(data);
     var fragment = document.createDocumentFragment();
@@ -66,6 +60,5 @@
 
     window.element.mapFilters.classList.remove('ad-form--disabled');
   };
-  // //////////////////////////////////////////////////////
 
 })();

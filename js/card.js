@@ -29,7 +29,6 @@
     'conditioner': 'кондиционер'
   };
 
-  // ----------Вставляет данные в шаблон Card------
   var getCardElement = function (card) {
     var cardElement = mapCardTemplate.cloneNode(true);
     var popupTitle = cardElement.querySelector('.popup__title');
@@ -75,15 +74,12 @@
 
     return cardElement;
   };
-  // ////////////////////////////////////////////
 
-  // --------------Вставляет готовый шаблон в разметку
   window.card.renderCards = function (data) {
     var card = data;
     var fragment = document.createDocumentFragment();
     fragment.appendChild(getCardElement(card));
     map.appendChild(fragment);
   };
-  // //////////////////////////////////////////////////////
 
 })();

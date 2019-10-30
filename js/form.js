@@ -24,7 +24,6 @@
 
   window.util.getCoordinatesPin();
 
-  // ---------- Определяет какое количество комнат выбрал пользователь---------------------
   var defineNumberRooms = function () {
     for (var i = 0; i < roomsNumber.options.length; i++) {
       if (roomsNumber.options[i].selected) {
@@ -33,17 +32,13 @@
     }
     return numberRooms;
   };
-  // ///////////////////////////////////////////////////////////////////
 
-  // ----------Удаляет атрибут disabled у всех options в склекте гости--------------------------
   var removesDisabledCapacitys = function () {
     for (var i = 0; i < capacitys.options.length; i++) {
       capacitys.options[i].disabled = false;
     }
   };
-  // ///////////////////////////////////////////////////////////////////////////////
 
-  // -----------Добавляет атрибут disabled к определенным options в склекте гости--------------
   var addDisabledCapacitys = function (numberRooms) {
     for (var i = 0; i < capacitys.options.length; i++) {
       if (Number(capacitys.options[i].value) > Number(numberRooms)) {
@@ -62,15 +57,13 @@
       }
     }
   };
-  // ///////////////////////////////////////////////////////////////////////////////////
 
-  // ------Если выбранное количество гостей, после переключения количество комнат, стало недоступным, то данная функция переключает на доступное количество гостей---------------------------
   var switchСapacitys = function () {
     for (var i = 0; i < capacitys.options.length; i++) {
-      if (capacitys.options[i].selected) { // Определяем какой option выбран
-        if (capacitys.options[i].disabled) { // Проверяем у него значение disabled, если tru то выполняем следующи код
+      if (capacitys.options[i].selected) {
+        if (capacitys.options[i].disabled) {
           for (var j = 0; j < capacitys.options.length; j++) {
-            if (!capacitys.options[j].disabled) { // Здесь находим первый элемент который активен и переходи к нему
+            if (!capacitys.options[j].disabled) {
               capacitys.options[j].selected = true;
               break;
             }
@@ -79,9 +72,7 @@
       }
     }
   };
-  // ///////////////////////////////////////////////////////////////////////////////////////////
 
-  // -----Переводит селек к тому значеению у которого value равняется входному параметру-----------
   var goValueOption = function (goValue, select) {
     for (var i = 0; i < select.options.length; i++) {
       if (select.options[i].value === goValue) {
@@ -90,35 +81,26 @@
       }
     }
   };
-  // ////////////////////////////////////////////////////////////////////////////////////////
 
-  // -----Принимает два селекта. Узнает value активного значения первого селекта и выбирает значение с тем же value у второго селекта-----------
   var changeSelect = function (select1, select2) {
     var valueOption = window.filter.getValueOption(select1);
     goValueOption(valueOption, select2);
   };
-  // ////////////////////////////////////////////////////////////////////////////////////////
 
-  // -----Получает на вход value выбранного option селека тип жилья и меняет минимальную цену и плейсхолдер-----------
   var changeValueMin = function (valueInputPrice) {
     inputPrice.setAttribute('min', priceMap[valueInputPrice]);
     inputPrice.setAttribute('placeholder', priceMap[valueInputPrice]);
   };
-  // ////////////////////////////////////////////////////////////////////////////////////////
 
-  // -------не дает пользователю выбрать количество гостей больше количества комнат
   roomsNumber.addEventListener('change', function () {
     removesDisabledCapacitys();
     addDisabledCapacitys(defineNumberRooms());
     switchСapacitys();
   });
-  // /////////////////////////////////////////////////////////////////////////////////
 
-  // -------Определяет минимальную цену в зависимости от выбранного типа жилья каждый раз, когда значение в селекте type меняется -----------
   type.addEventListener('change', function () {
     changeValueMin(window.filter.getValueOption(type));
   });
-  // /////////////////////////////////////////////////////////////////////////////////
 
   var onDisabledPage = function (evt) {
     if (evt.keyCode === window.constants.ESC_KEYCODE) {

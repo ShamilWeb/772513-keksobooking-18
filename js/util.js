@@ -2,7 +2,7 @@
 
 (function () {
   window.util = {
-    getRandomNumber: function (min, max) { // Генерирует случайное число
+    getRandomNumber: function (min, max) {
       return Math.round(min - 0.5 + Math.random() * (max - min + 1));
     },
     getInactivePage: function (removeErrorTemplate) {
@@ -37,23 +37,23 @@
         evt.stopPropagation();
       });
     },
-    getCoordinatesPin: function () { // -------Вычисляет координаты метки X и Y, взависимости от длины острого конца и втавляет в поле адресса-------
+    getCoordinatesPin: function () {
       var coordinateX = Math.floor(window.element.mapPin.offsetLeft + (window.constants.MAP_PIN_WIDTH / 2));
       var coordinateY = Math.floor(window.element.mapPin.offsetTop + window.constants.MAP_PIN_HEIGHT);
       window.element.address.value = coordinateX + ', ' + coordinateY;
     },
-    removeDomElement: function (selector) { // --------удаляет домэлемент----------
+    removeDomElement: function (selector) {
       if (document.querySelector(selector)) {
         document.querySelector(selector).remove();
       }
     },
-    removeDomElementAndClass: function (selector) { // --------удаляет домэлемент и класс map__pin--active---------
+    removeDomElementAndClass: function (selector) {
       window.util.removeDomElement(selector);
       if (document.querySelector('.map__pin--active')) {
         document.querySelector('.map__pin--active').classList.remove('map__pin--active');
       }
     },
-    addEventListenerKeydown: function (selector, fact, callback, keyNamber) { // -------Добавляет слушатель на дом элементы------------------
+    addEventListenerKeydown: function (selector, fact, callback, keyNamber) {
       var domElements = document.querySelectorAll(selector);
       if (fact !== 'keydown') {
         for (var i = 0; i < domElements.length; i++) {

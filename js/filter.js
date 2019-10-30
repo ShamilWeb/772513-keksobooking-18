@@ -15,7 +15,7 @@
     selectedGuests: 'any',
     selectedPrice: 'any',
     valueCheckedInputs: [],
-    getValueOption: function (select) { // ------На вход принимает select и возвращает value выбранного option-----------
+    getValueOption: function (select) {
       for (var i = 0; i < select.options.length; i++) {
         if (select.options[i].selected) {
           var returnValue = select.options[i].value;
@@ -33,7 +33,6 @@
     }
   };
 
-  // ------На вход принимает значение value выбранного option селекта Price---------
   var changeValue = function (valueOption) {
     window.filter.low = false;
     window.filter.middle = false;
@@ -49,9 +48,7 @@
         window.filter.high = true;
     }
   };
-  // //////////////////////////////////////////////////////////////////////////
 
-  // ------На вход принимает массив инпутов и возвращает массив, значения у которого value тех инпутов, которые активны-----------
   var getValueCheckedInputs = function (arryInputs) {
     var arryCheckedInputs = [];
     for (var i = 0; i < arryInputs.length; i++) {
@@ -61,7 +58,6 @@
     }
     return arryCheckedInputs;
   };
-  // /////////////////////////////////////////////////////////////////////////////////////
 
   window.element.mapFilters.addEventListener('change', function () {
     window.util.removeDomElement('.map__card');

@@ -10,7 +10,6 @@
   var formPhoto = document.querySelector('.ad-form__photo');
   var photoContainer = document.querySelector('.ad-form__photo-container');
 
-  // ---------Вставляет img тег. attributeSrc-принимает значение атрибута src. pasteHere-определяет в куда будет ставлен img----------
   var insertImg = function (attributeSrc, pasteHere) {
     var elementImg = document.createElement('img');
     elementImg.src = attributeSrc;
@@ -20,9 +19,7 @@
     formPhotoCopy.appendChild(elementImg);
     pasteHere.insertBefore(formPhotoCopy, document.querySelector('.ad-form__photo'));
   };
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // -----------Проверяет загруженный файл изображение или нет----------------------------
   var doesСheckImg = function (file) {
     var fileName = file.name.toLowerCase();
 
@@ -31,9 +28,7 @@
     });
     return matches;
   };
-  // ///////////////////////////////////////////////////////////////////////////////
 
-  // ------inputFile-в этот параметр передается инпут для загрузки фото, cd-передается функция в каторую передастся изображение в образе текста------
   var downloadImg = function (inputFile, cb) {
     inputFile.addEventListener('change', function () {
       var file = inputFile.files[0];
@@ -49,7 +44,6 @@
       }
     });
   };
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   downloadImg(fileChooser, function (result) {
     window.preview.src = result;

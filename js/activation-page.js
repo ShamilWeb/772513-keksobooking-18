@@ -58,18 +58,14 @@
     }
 
   };
-  // /////////////////////////////////////////////////////////////////
 
-  // -----При нажатии мышкой на кекс в цетре карты, переводит страницу в активное состояние-------------
   window.activation.mapPinMain.addEventListener('mousedown', function () {
     if (document.querySelector('.map--faded')) {
       window.backend.load(window.pin.renderPins, window.util.outputErrors);
     }
     activationPage(true);
   });
-  // //////////////////////////////////////////////////////////////
 
-  // -------При нажатии ИНТЕРОМ на кекс в цетре карты, переводит страницу в активное состояние-------------
   window.activation.mapPinMain.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       if (document.querySelector('.map--faded')) {
@@ -78,7 +74,6 @@
       activationPage(true);
     }
   });
-  // ////////////////////////////////////////////////////////////////////////////////
 
   activationPage(false);
 
