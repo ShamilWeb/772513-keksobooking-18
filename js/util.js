@@ -15,7 +15,7 @@
         document.removeEventListener('keydown', window.util.onDisabledPage);
       }
     },
-    outputErrors: function (errorMessage) {
+    outputErrors: function () {
       var errorTemplate = document.querySelector('#error').content.querySelector('.error');
       window.util.errorTemplateClone = errorTemplate.cloneNode(true);
       var errorMessageTpl = window.util.errorTemplateClone.querySelector('.error__message');

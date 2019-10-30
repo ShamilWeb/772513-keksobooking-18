@@ -16,7 +16,7 @@
         window.backend.serverData = xhr.response;
         onLoad(xhr.response);
       } else {
-        onError()
+        onError();
       }
     });
 
