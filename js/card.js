@@ -40,7 +40,7 @@
     var popupFeatures = cardElement.querySelector('.popup__features');
     var popupDescription = cardElement.querySelector('.popup__description');
     var popupPhotos = cardElement.querySelector('.popup__photos');
-    var imgPhoto = popupPhotos.querySelector('img');
+    var imagePhoto = popupPhotos.querySelector('img');
     var popupAvatar = cardElement.querySelector('.popup__avatar');
     popupTitle.textContent = card.offer.title;
     popupTextAddress.textContent = card.offer.address;
@@ -59,11 +59,11 @@
 
     popupDescription.textContent = card.offer.description;
 
-    var img = imgPhoto.cloneNode();
-    imgPhoto.remove();
+    var image = imagePhoto.cloneNode();
+    imagePhoto.remove();
     for (i = 0; i < card.offer.photos.length; i++) {
-      var imgClone = img.cloneNode();
-      popupPhotos.appendChild(imgClone);
+      var imageClone = image.cloneNode();
+      popupPhotos.appendChild(imageClone);
     }
 
     for (i = 0; i < card.offer.photos.length; i++) {

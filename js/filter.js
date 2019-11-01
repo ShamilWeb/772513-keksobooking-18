@@ -18,11 +18,11 @@
     getValueOption: function (select) {
       for (var i = 0; i < select.options.length; i++) {
         if (select.options[i].selected) {
-          var returnValue = select.options[i].value;
+          var result = select.options[i].value;
         }
       }
 
-      return returnValue;
+      return result;
     },
     getValueFilter: function () {
       window.filter.selectedTypeHous = window.filter.getValueOption(housingType);
@@ -49,14 +49,14 @@
     }
   };
 
-  var getValueCheckedInputs = function (arryInputs) {
-    var arryCheckedInputs = [];
-    for (var i = 0; i < arryInputs.length; i++) {
-      if (arryInputs[i].checked) {
-        arryCheckedInputs.push(arryInputs[i].value);
+  var getValueCheckedInputs = function (arrayInputs) {
+    var arrayCheckedInputs = [];
+    for (var i = 0; i < arrayInputs.length; i++) {
+      if (arrayInputs[i].checked) {
+        arrayCheckedInputs.push(arrayInputs[i].value);
       }
     }
-    return arryCheckedInputs;
+    return arrayCheckedInputs;
   };
 
   window.element.mapFilters.addEventListener('change', function () {

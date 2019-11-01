@@ -7,9 +7,9 @@
 
   var getPinElement = function (pin) {
     var markElement = mapPinTemplate.cloneNode(true);
-    var img = markElement.querySelector('img');
-    img.src = pin.author.avatar;
-    img.alt = pin.offer.title;
+    var image = markElement.querySelector('img');
+    image.src = pin.author.avatar;
+    image.alt = pin.offer.title;
     markElement.style.left = pin.location.x + 'px';
     markElement.style.top = pin.location.y + 'px';
     return markElement;
