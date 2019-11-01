@@ -10,14 +10,14 @@
   var formPhoto = document.querySelector('.ad-form__photo');
   var photoContainer = document.querySelector('.ad-form__photo-container');
 
-  var insertImg = function (attributeSrc, pasteHere) {
+  var insertImg = function (attributeSrc, parent) {
     var elementImg = document.createElement('img');
     elementImg.src = attributeSrc;
     elementImg.width = IMG_WIDTH;
     elementImg.height = IMG_HEIGHT;
     var formPhotoCopy = formPhoto.cloneNode(true);
     formPhotoCopy.appendChild(elementImg);
-    pasteHere.insertBefore(formPhotoCopy, document.querySelector('.ad-form__photo'));
+    parent.insertBefore(formPhotoCopy, document.querySelector('.ad-form__photo'));
   };
 
   var doesСheckImg = function (file) {

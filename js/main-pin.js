@@ -43,10 +43,10 @@
       };
 
       if (checkClientX()) {
-        if (dragX < MIN_WIDTH) {
-          dragX = MIN_WIDTH;
-        } else if (dragX > MAX_WIDTH - window.constants.MAP_PIN_WIDTH) {
-          dragX = MAX_WIDTH - window.constants.MAP_PIN_WIDTH;
+        if (dragX < -window.constants.MAP_PIN_WIDTH / 2) {
+          dragX = -window.constants.MAP_PIN_WIDTH / 2;
+        } else if (dragX > MAX_WIDTH - window.constants.MAP_PIN_WIDTH / 2) {
+          dragX = MAX_WIDTH - window.constants.MAP_PIN_WIDTH / 2;
         }
         window.activation.mapPinMain.style.left = dragX + 'px';
 

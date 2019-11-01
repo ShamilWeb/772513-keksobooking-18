@@ -3,6 +3,8 @@
 (function () {
   var MAX_NUMBER_ROOMS = 100;
   var MIN_TEXT = 30;
+  var MIN_PRICE = 1000;
+  var MAX_PRICE = 1000000;
   var roomsNumber = document.querySelector('#room_number');
   var capacitys = document.querySelector('#capacity');
   var inputPrice = document.querySelector('#price');
@@ -92,6 +94,10 @@
     inputPrice.setAttribute('placeholder', priceMap[valueInputPrice]);
   };
 
+  var getMinPrice = function (valueInputPrice){
+    return priceMap[valueInputPrice]
+  };
+
   roomsNumber.addEventListener('change', function () {
     removesDisabledCapacitys();
     addDisabledCapacitys(defineNumberRooms());
@@ -100,6 +106,7 @@
 
   type.addEventListener('change', function () {
     changeValueMin(window.filter.getValueOption(type));
+    MIN_PRICE = getMinPrice(window.filter.getValueOption(type));
   });
 
   var onDisabledPage = function (evt) {
@@ -121,6 +128,17 @@
     });
   };
 
+  var addClassInputNotValid = function (input) {
+    if (!input.checkValidity()) {
+      input.classList.add('input--not-valid');
+    }
+     else {
+        if (input.classList.contains('input--not-valid')) {
+          input.classList.remove('input--not-valid');
+        }
+      }
+  };
+
   window.util.addEventListenerKeydown('#timein', 'change', changeSelect.bind(null, timein, timeout));
   window.util.addEventListenerKeydown('#timeout', 'change', changeSelect.bind(null, timeout, timein));
 
@@ -129,12 +147,22 @@
     window.backend.save(new FormData(window.element.form), onSaveForm, window.util.outputErrors);
   });
 
+  inputTitle.addEventListener('keydown', function () {
+    inputTitle.setCustomValidity('');
+  });
+
   adFormSubmit.addEventListener('click', function () {
     inputTitle.value = inputTitle.value.trim();
-    inputTitle.setCustomValidity('');
-    if (inputTitle.value.length < MIN_TEXT) {
+
+    if (inputTitle.value.length < MIN_TEXT){
       inputTitle.setCustomValidity('Длина текста не должна быть меньше 30 символов');
+    } else {
+      inputTitle.setCustomValidity('');
     }
+
+    addClassInputNotValid(inputTitle);
+    addClassInputNotValid(inputPrice);
+
   });
 
   formReset.addEventListener('click', function () {

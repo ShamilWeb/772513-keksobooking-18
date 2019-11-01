@@ -4,8 +4,8 @@
   var ENTER_KEYCODE = 13;
   var PIN_TOP = '375px';
   var PIN_LEFT = '570px';
-  var fieldsets = document.querySelectorAll('fieldset');
-  var selects = document.querySelectorAll('select');
+  var formFieldsets = document.querySelectorAll('.ad-form fieldset');
+  var formSelects = document.querySelectorAll('.ad-form select');
   var adForm = document.querySelector('.ad-form');
 
   window.activation = {
@@ -16,12 +16,15 @@
   // ------переводит страницу в активное состояние----------------------------
   var activationPage = function (isActive) {
     if (isActive) {
+      window.constants.ACTIVE_PAGE = true;
+      window.util.getCoordinatesPin();
       if (document.querySelector('.map--faded')) {
         window.element.map.classList.remove('map--faded');
         adForm.classList.remove('ad-form--disabled');
         window.filter.getValueFilter();
       }
     } else {
+      window.constants.ACTIVE_PAGE = false;
       if (document.querySelector('.ad-form__photo').querySelector('img')) {
         var adFormPhotos = document.querySelectorAll('.ad-form__photo');
         for (var i = 0; i < adFormPhotos.length - 1; i++) {
@@ -45,12 +48,25 @@
           mapPins[i].remove();
         }
       }
+      if (document.querySelector('.input--not-valid')) {
+        var classValid = document.querySelectorAll('.input--not-valid');
+        for (i = 0; i < classValid.length; i++) {
+          classValid[i].classList.remove('input--not-valid')
+        }
+      }
     }
-    for (i = 0; i < fieldsets.length; i++) {
-      fieldsets[i].disabled = !isActive;
+    for (i = 0; i < formFieldsets.length; i++) {
+      formFieldsets[i].disabled = !isActive;
     }
-    for (i = 0; i < selects.length; i++) {
-      selects[i].disabled = !isActive;
+    for (i = 0; i < formSelects.length; i++) {
+      formSelects[i].disabled = !isActive;
+    }
+
+    for (i = 0; i < window.element.filterFieldsets.length; i++) {
+      window.element.filterFieldsets[i].disabled = true;
+    }
+    for (i = 0; i < window.element.filterSelects.length; i++) {
+      window.element.filterSelects[i].disabled = true;
     }
 
     if (document.querySelector('.map__card')) {

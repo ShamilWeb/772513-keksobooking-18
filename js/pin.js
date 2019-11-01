@@ -44,6 +44,16 @@
     }
   };
 
+  var activateFilter =function () {
+    window.element.mapFilters.classList.remove('ad-form--disabled');
+    for (var i = 0; i < window.element.filterFieldsets.length; i++) {
+      window.element.filterFieldsets[i].disabled = false;
+    }
+    for (i = 0; i < window.element.filterSelects.length; i++) {
+      window.element.filterSelects[i].disabled = false;
+    }
+  };
+
   window.pin.renderPins = function (data) {
     var pinsData = window.sorting(data);
     var fragment = document.createDocumentFragment();
@@ -58,7 +68,8 @@
 
     mapPins.appendChild(fragment);
 
-    window.element.mapFilters.classList.remove('ad-form--disabled');
+    activateFilter();
+
   };
 
 })();

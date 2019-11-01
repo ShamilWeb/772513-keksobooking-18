@@ -39,7 +39,7 @@
     },
     getCoordinatesPin: function () {
       var coordinateX = Math.floor(window.element.mapPin.offsetLeft + (window.constants.MAP_PIN_WIDTH / 2));
-      var coordinateY = Math.floor(window.element.mapPin.offsetTop + window.constants.MAP_PIN_HEIGHT);
+      var coordinateY = Math.floor(window.element.mapPin.offsetTop + (window.constants.ACTIVE_PAGE? window.constants.MAP_PIN_HEIGHT : window.constants.MAP_PIN_ROUND_HEIGHT/2));
       window.element.address.value = coordinateX + ', ' + coordinateY;
     },
     removeDomElement: function (selector) {
