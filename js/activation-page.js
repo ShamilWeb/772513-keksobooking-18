@@ -9,14 +9,14 @@
   var adForm = document.querySelector('.ad-form');
 
   window.activation = {
-    activationPage: activationPage,
+    activatePage: activatePage,
     mapPinMain: document.querySelector('.map__pin--main')
   };
 
   // ------переводит страницу в активное состояние----------------------------
-  var activationPage = function (isActive) {
+  var activatePage = function (isActive) {
     if (isActive) {
-      window.constants.ACTIVE_PAGE = true;
+      window.Сonstants.ACTIVE_PAGE = true;
       window.util.getCoordinatesPin();
       if (document.querySelector('.map--faded')) {
         window.element.map.classList.remove('map--faded');
@@ -24,7 +24,7 @@
         window.filter.getValueFilter();
       }
     } else {
-      window.constants.ACTIVE_PAGE = false;
+      window.Сonstants.ACTIVE_PAGE = false;
       if (document.querySelector('.ad-form__photo').querySelector('img')) {
         var adFormPhotos = document.querySelectorAll('.ad-form__photo');
         for (var i = 0; i < adFormPhotos.length - 1; i++) {
@@ -79,7 +79,7 @@
     if (document.querySelector('.map--faded')) {
       window.backend.load(window.pin.renderPins, window.util.outputErrors);
     }
-    activationPage(true);
+    activatePage(true);
   });
 
   window.activation.mapPinMain.addEventListener('keydown', function (evt) {
@@ -87,13 +87,13 @@
       if (document.querySelector('.map--faded')) {
         window.backend.load(window.pin.renderPins, window.util.outputErrors);
       }
-      activationPage(true);
+      activatePage(true);
     }
   });
 
-  activationPage(false);
+  activatePage(false);
 
-  window.activation.activationPage = activationPage;
+  window.activation.activatePage = activatePage;
 
 
 })();

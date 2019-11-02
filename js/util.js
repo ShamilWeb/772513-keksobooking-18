@@ -7,12 +7,12 @@
     },
     getInactivePage: function (errorTemplate) {
       errorTemplate.remove();
-      window.activation.activationPage(false);
+      window.activation.activatePage(false);
     },
-    onDisabledPage: function (evt) {
-      if (evt.keyCode === window.constants.ESC_KEYCODE) {
+    onDeactivatePage: function (evt) {
+      if (evt.keyCode === window.Сonstants.ESC_KEYCODE) {
         window.util.getInactivePage(window.util.errorTemplateClone);
-        document.removeEventListener('keydown', window.util.onDisabledPage);
+        document.removeEventListener('keydown', window.util.onDeactivatePage);
       }
     },
     outputErrors: function () {
@@ -27,7 +27,7 @@
         window.util.getInactivePage(window.util.errorTemplateClone);
       });
 
-      document.addEventListener('keydown', window.util.onDisabledPage);
+      document.addEventListener('keydown', window.util.onDeactivatePage);
 
       window.util.errorTemplateClone.addEventListener('click', function () {
         window.util.getInactivePage(window.util.errorTemplateClone);
@@ -38,8 +38,8 @@
       });
     },
     getCoordinatesPin: function () {
-      var coordinateX = Math.floor(window.element.mapPin.offsetLeft + (window.constants.MAP_PIN_WIDTH / 2));
-      var coordinateY = Math.floor(window.element.mapPin.offsetTop + (window.constants.ACTIVE_PAGE? window.constants.MAP_PIN_HEIGHT : window.constants.MAP_PIN_ROUND_HEIGHT/2));
+      var coordinateX = Math.floor(window.element.mapPin.offsetLeft + (window.Сonstants.MAP_PIN_WIDTH / 2));
+      var coordinateY = Math.floor(window.element.mapPin.offsetTop + (window.Сonstants.ACTIVE_PAGE? window.Сonstants.MAP_PIN_HEIGHT : window.Сonstants.MAP_PIN_ROUND_HEIGHT/2));
       window.element.address.value = coordinateX + ', ' + coordinateY;
     },
     removeDomElement: function (selector) {

@@ -35,7 +35,7 @@
     return numberRooms;
   };
 
-  var removesDisabledCapacitys = function () {
+  var removeDisabledCapacitys = function () {
     for (var i = 0; i < capacitys.options.length; i++) {
       capacitys.options[i].disabled = false;
     }
@@ -99,7 +99,7 @@
   };
 
   roomsNumber.addEventListener('change', function () {
-    removesDisabledCapacitys();
+    removeDisabledCapacitys();
     addDisabledCapacitys(defineNumberRooms());
     switchСapacitys();
   });
@@ -109,17 +109,17 @@
     MIN_PRICE = getMinPrice(window.filter.getValueOption(type));
   });
 
-  var onDisabledPage = function (evt) {
-    if (evt.keyCode === window.constants.ESC_KEYCODE) {
+  var onDeactivatePage = function (evt) {
+    if (evt.keyCode === window.Сonstants.ESC_KEYCODE) {
       window.util.getInactivePage(successTemplate);
-      document.removeEventListener('keydown', onDisabledPage);
+      document.removeEventListener('keydown', onDeactivatePage);
     }
   };
 
   var onSaveForm = function () {
-    window.activation.activationPage(null, false);
+    window.activation.activatePage(null, false);
     main.appendChild(successTemplate);
-    document.addEventListener('keydown', onDisabledPage);
+    document.addEventListener('keydown', onDeactivatePage);
     successTemplate.addEventListener('click', function () {
       window.util.getInactivePage(successTemplate);
     });
@@ -166,7 +166,7 @@
   });
 
   formReset.addEventListener('click', function () {
-    window.activation.activationPage();
+    window.activation.activatePage(false);
   });
 
 })();

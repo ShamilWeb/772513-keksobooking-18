@@ -37,23 +37,23 @@
 
       var checkClientX = function () {
         return moveEvtClientX > dragX &&
-          moveEvtClientX < dragX + window.constants.MAP_PIN_WIDTH &&
+          moveEvtClientX < dragX + window.Сonstants.MAP_PIN_WIDTH &&
           moveEvt.clientY > dragYPageYOffset &&
-          moveEvt.clientY < dragYPageYOffset + window.constants.MAP_PIN_HEIGHT;
+          moveEvt.clientY < dragYPageYOffset + window.Сonstants.MAP_PIN_HEIGHT;
       };
 
       if (checkClientX()) {
-        if (dragX < -window.constants.MAP_PIN_WIDTH / 2) {
-          dragX = -window.constants.MAP_PIN_WIDTH / 2;
-        } else if (dragX > MAX_WIDTH - window.constants.MAP_PIN_WIDTH / 2) {
-          dragX = MAX_WIDTH - window.constants.MAP_PIN_WIDTH / 2;
+        if (dragX < -window.Сonstants.MAP_PIN_WIDTH / 2) {
+          dragX = -window.Сonstants.MAP_PIN_WIDTH / 2;
+        } else if (dragX > MAX_WIDTH - window.Сonstants.MAP_PIN_WIDTH / 2) {
+          dragX = MAX_WIDTH - window.Сonstants.MAP_PIN_WIDTH / 2;
         }
         window.activation.mapPinMain.style.left = dragX + 'px';
 
-        if (dragY < MIN_HEIGHT - window.constants.MAP_PIN_HEIGHT) {
-          dragY = MIN_HEIGHT - window.constants.MAP_PIN_HEIGHT;
-        } else if (dragY > MAX_HEIGHT - window.constants.MAP_PIN_HEIGHT) {
-          dragY = MAX_HEIGHT - window.constants.MAP_PIN_HEIGHT;
+        if (dragY < MIN_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT) {
+          dragY = MIN_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT;
+        } else if (dragY > MAX_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT) {
+          dragY = MAX_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT;
         }
         window.activation.mapPinMain.style.top = dragY + 'px';
       }

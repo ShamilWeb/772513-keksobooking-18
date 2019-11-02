@@ -20,7 +20,7 @@
     parent.insertBefore(formPhotoCopy, document.querySelector('.ad-form__photo'));
   };
 
-  var doesСheckImage = function (file) {
+  var verifyImage = function (file) {
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (element) {
@@ -33,7 +33,7 @@
     inputFile.addEventListener('change', function () {
       var file = inputFile.files[0];
 
-      if (doesСheckImg(file)) {
+      if (verifyImage(file)) {
         var reader = new FileReader();
 
         reader.addEventListener('load', function () {
