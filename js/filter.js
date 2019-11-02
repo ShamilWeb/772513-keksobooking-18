@@ -19,6 +19,7 @@
       for (var i = 0; i < select.options.length; i++) {
         if (select.options[i].selected) {
           var result = select.options[i].value;
+          break;
         }
       }
 

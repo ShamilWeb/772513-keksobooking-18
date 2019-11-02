@@ -9,5 +9,6 @@
     address: document.querySelector('#address'),
     filterFieldsets: document.querySelectorAll('.map__filters fieldset'),
     filterSelects: document.querySelectorAll('.map__filters select'),
+    mapOverlay: document.querySelector('.map__overlay'),
   };
 })();

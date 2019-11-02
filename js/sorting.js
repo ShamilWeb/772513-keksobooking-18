@@ -55,6 +55,7 @@
       for (var i = 0; i < element.offer.features.length; i++) {
         if (element.offer.features[i] === value) {
           booleanValue = true;
+          break;
         }
       }
       return booleanValue;

@@ -30,6 +30,7 @@
     for (var i = 0; i < roomsNumber.options.length; i++) {
       if (roomsNumber.options[i].selected) {
         var numberRooms = roomsNumber.options[i].value;
+        break;
       }
     }
     return numberRooms;

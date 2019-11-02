@@ -20,15 +20,6 @@
     'conditioner': 5
   };
 
-  var transferFeaturesMap = {
-    'wifi': 'wifi',
-    'dishwasher': 'посудомоечная машина',
-    'parking': 'стоянка',
-    'washer': 'стиральная машина',
-    'elevator': 'лифт',
-    'conditioner': 'кондиционер'
-  };
-
   var getCardElement = function (card) {
     var cardElement = mapCardTemplate.cloneNode(true);
     var popupTitle = cardElement.querySelector('.popup__title');
@@ -48,8 +39,9 @@
     popupType.textContent = typeHouseMap[card.offer.type];
     popupTextCapacity.textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
     popupTextTime.textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
+
     for (var i = 0; i < card.offer.features.length; i++) {
-      popupFeatures.children[indexFeaturesMap[card.offer.features[i]]].textContent = transferFeaturesMap[card.offer.features[i]];
+      popupFeatures.children[indexFeaturesMap[card.offer.features[i]]].textContent = 'true';
     }
     for (i = 0; i < popupFeatures.children.length; i++) {
       if (!popupFeatures.children[i].textContent) {
@@ -59,15 +51,13 @@
 
     popupDescription.textContent = card.offer.description;
 
-    var image = imagePhoto.cloneNode();
+    var image = imagePhoto;
     imagePhoto.remove();
-    for (i = 0; i < card.offer.photos.length; i++) {
-      var imageClone = image.cloneNode();
-      popupPhotos.appendChild(imageClone);
-    }
 
     for (i = 0; i < card.offer.photos.length; i++) {
-      popupPhotos.children[i].src = card.offer.photos[i];
+      var imageClone = image.cloneNode();
+      imageClone.src = card.offer.photos[i];
+      popupPhotos.appendChild(imageClone);
     }
 
     popupAvatar.src = card.author.avatar;

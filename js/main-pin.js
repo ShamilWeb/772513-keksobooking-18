@@ -4,8 +4,7 @@
   var MAX_HEIGHT = 630;
   var MIN_HEIGHT = 130;
   var MIN_WIDTH = 0;
-  var mapOverlay = document.querySelector('.map__overlay');
-  var MAX_WIDTH = mapOverlay.clientWidth;
+  var MAX_WIDTH = window.element.mapOverlay.clientWidth;
   var mapPinMainImg = window.activation.mapPinMain.querySelector('img');
   var main = document.querySelector('main');
 
@@ -19,7 +18,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      MAX_WIDTH = mapOverlay.clientWidth;
+      MAX_WIDTH =   window.element.mapOverlay.clientWidth;
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
