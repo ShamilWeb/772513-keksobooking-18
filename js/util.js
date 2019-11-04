@@ -16,12 +16,11 @@
       }
     },
     outputErrors: function () {
-      var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-      window.util.errorTemplateClone = errorTemplate.cloneNode(true);
+      window.util.errorTemplateClone = window.element.errorTemplate.cloneNode(true);
       var errorMessageTpl = window.util.errorTemplateClone.querySelector('.error__message');
       var errorButton = window.util.errorTemplateClone.querySelector('.error__button');
-      var main = document.querySelector('main');
-      main.prepend(window.util.errorTemplateClone);
+
+      window.element.main.prepend(window.util.errorTemplateClone);
 
       errorButton.addEventListener('click', function () {
         window.util.getInactivePage(window.util.errorTemplateClone);

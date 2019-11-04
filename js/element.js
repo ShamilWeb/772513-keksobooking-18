@@ -2,6 +2,8 @@
 
 (function () {
   window.element = {
+    main: document.querySelector('main'),
+    errorTemplate: document.querySelector('#error').content.querySelector('.error'),
     mapPin: document.querySelector('.map__pin'),
     mapFilters: document.querySelector('.map__filters'),
     form: document.querySelector('.ad-form'),
