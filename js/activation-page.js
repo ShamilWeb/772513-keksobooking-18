@@ -8,6 +8,22 @@
   var formSelects = document.querySelectorAll('.ad-form select');
   var adForm = document.querySelector('.ad-form');
 
+  var onMapPinMainMousedown = function () {
+    if (document.querySelector('.map--faded')) {
+      window.backend.load(window.pin.renderPins, window.util.outputErrors);
+    }
+    activatePage(true);
+  };
+
+  var onMapPinMainKeydown = function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      if (document.querySelector('.map--faded')) {
+        window.backend.load(window.pin.renderPins, window.util.outputErrors);
+      }
+      activatePage(true);
+    }
+  };
+
   window.activation = {
     activatePage: activatePage,
     mapPinMain: document.querySelector('.map__pin--main')
@@ -16,6 +32,8 @@
   // ------переводит страницу в активное состояние----------------------------
   var activatePage = function (isActive) {
     if (isActive) {
+      window.activation.mapPinMain.removeEventListener('mousedown', onMapPinMainMousedown);
+      window.activation.mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
       window.Сonstants.ACTIVE_PAGE = true;
       window.util.getCoordinatesPin();
       if (document.querySelector('.map--faded')) {
@@ -24,6 +42,8 @@
         window.filter.getValueFilter();
       }
     } else {
+      window.activation.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
+      window.activation.mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
       window.Сonstants.ACTIVE_PAGE = false;
       if (document.querySelector('.ad-form__photo').querySelector('img')) {
         var adFormPhotos = document.querySelectorAll('.ad-form__photo');
@@ -74,22 +94,6 @@
     }
 
   };
-
-  window.activation.mapPinMain.addEventListener('mousedown', function () {
-    if (document.querySelector('.map--faded')) {
-      window.backend.load(window.pin.renderPins, window.util.outputErrors);
-    }
-    activatePage(true);
-  });
-
-  window.activation.mapPinMain.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      if (document.querySelector('.map--faded')) {
-        window.backend.load(window.pin.renderPins, window.util.outputErrors);
-      }
-      activatePage(true);
-    }
-  });
 
   activatePage(false);
 

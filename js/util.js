@@ -47,12 +47,7 @@
         document.querySelector(selector).remove();
       }
     },
-    removeDomElementAndClass: function (selector) {
-      window.util.removeDomElement(selector);
-      if (document.querySelector('.map__pin--active')) {
-        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
-      }
-    },
+
     addEventListenerKeydown: function (selector, fact, callback, keyNamber) {
       var domElements = document.querySelectorAll(selector);
       if (fact !== 'keydown') {
