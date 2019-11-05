@@ -39,7 +39,7 @@
       adForm.classList.remove('ad-form--disabled');
       window.filter.getValueFilter();
     }
-  }
+  };
 
   var activatePageFalse = function () {
     window.activation.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
@@ -74,7 +74,7 @@
         element.classList.remove('input--not-valid');
       });
     }
-  }
+  };
 
   var activatePage = function (isActive) {
     if (isActive) {

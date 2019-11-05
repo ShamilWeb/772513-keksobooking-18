@@ -74,7 +74,7 @@
     }
   };
 
-  var activateFilter =function () {
+  var activateFilter = function () {
     window.element.mapFilters.classList.remove('ad-form--disabled');
     window.element.filterFieldsets.forEach(function (element) {
       element.disabled = false;

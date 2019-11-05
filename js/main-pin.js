@@ -3,7 +3,6 @@
 (function () {
   var MAX_HEIGHT = 630;
   var MIN_HEIGHT = 130;
-  var MIN_WIDTH = 0;
   var MAX_WIDTH = window.element.mapOverlay.clientWidth;
   var main = document.querySelector('main');
 

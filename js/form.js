@@ -3,8 +3,7 @@
 (function () {
   var MAX_NUMBER_ROOMS = 100;
   var MIN_TEXT = 30;
-  var MIN_PRICE = 1000;
-  var MAX_PRICE = 1000000;
+
   var roomsNumber = document.querySelector('#room_number');
   var capacitys = document.querySelectorAll('#capacity option');
   var inputPrice = document.querySelector('#price');
@@ -51,7 +50,7 @@
       }
 
       if (MAX_NUMBER_ROOMS === Number(numberRooms)) {
-        capacitys[capacitys.length - 1].disabled = false
+        capacitys[capacitys.length - 1].disabled = false;
       }
     });
   };
@@ -90,10 +89,6 @@
     inputPrice.setAttribute('placeholder', priceMap[valueInputPrice]);
   };
 
-  var getMinPrice = function (valueInputPrice){
-    return priceMap[valueInputPrice]
-  };
-
   roomsNumber.addEventListener('change', function () {
     removeDisabledCapacitys();
     addDisabledCapacitys(defineNumberRooms());
@@ -102,7 +97,6 @@
 
   type.addEventListener('change', function () {
     changeValueMin(window.filter.getValueOption(type));
-    MIN_PRICE = getMinPrice(window.filter.getValueOption(type));
   });
 
   var onDeactivatePage = function (evt) {
@@ -127,12 +121,11 @@
   var addClassInputNotValid = function (input) {
     if (!input.checkValidity()) {
       input.classList.add('input--not-valid');
-    }
-     else {
-        if (input.classList.contains('input--not-valid')) {
-          input.classList.remove('input--not-valid');
-        }
+    } else {
+      if (input.classList.contains('input--not-valid')) {
+        input.classList.remove('input--not-valid');
       }
+    }
   };
 
   window.util.addEventListenerKeydown('#timein', 'change', changeSelect.bind(null, timein, timeout));
@@ -150,7 +143,7 @@
   adFormSubmit.addEventListener('click', function () {
     inputTitle.value = inputTitle.value.trim();
 
-    if (inputTitle.value.length < MIN_TEXT){
+    if (inputTitle.value.length < MIN_TEXT) {
       inputTitle.setCustomValidity('Длина текста не должна быть меньше 30 символов');
     } else {
       inputTitle.setCustomValidity('');
