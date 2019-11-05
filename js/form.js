@@ -38,25 +38,20 @@
 
   var removeDisabledCapacitys = function () {
     for (var i = 0; i < capacitys.options.length; i++) {
-      capacitys.options[i].disabled = false;
+      if (capacitys.options[i].disabled) {
+        capacitys.options[i].disabled = false;
+      }
     }
   };
 
   var addDisabledCapacitys = function (numberRooms) {
     for (var i = 0; i < capacitys.options.length; i++) {
-      if (Number(capacitys.options[i].value) > Number(numberRooms)) {
+      if (Number(capacitys.options[i].value) > Number(numberRooms) || Number(capacitys.options[i].value) === 0 || MAX_NUMBER_ROOMS === Number(numberRooms)) {
         capacitys.options[i].disabled = true;
       }
 
       if (MAX_NUMBER_ROOMS === Number(numberRooms)) {
-        capacitys.options[capacitys.options.length - 1].disabled = false;
-        for (var j = 0; j < capacitys.options.length; j++) {
-          if (capacitys.options[j].textContent !== 'не для гостей') {
-            capacitys.options[j].disabled = true;
-          }
-        }
-      } else {
-        capacitys.options[capacitys.options.length - 1].disabled = true;
+        capacitys.options[capacitys.options.length - 1].disabled = false
       }
     }
   };
