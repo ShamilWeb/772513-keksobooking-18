@@ -52,11 +52,12 @@
 
   var getValueCheckedInputs = function (arrayInputs) {
     var arrayCheckedInputs = [];
-    for (var i = 0; i < arrayInputs.length; i++) {
-      if (arrayInputs[i].checked) {
-        arrayCheckedInputs.push(arrayInputs[i].value);
+    arrayInputs.forEach(function (element) {
+      if (element.checked) {
+        arrayCheckedInputs.push(element.value);
       }
-    }
+    });
+
     return arrayCheckedInputs;
   };
 

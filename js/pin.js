@@ -76,12 +76,13 @@
 
   var activateFilter =function () {
     window.element.mapFilters.classList.remove('ad-form--disabled');
-    for (var i = 0; i < window.element.filterFieldsets.length; i++) {
-      window.element.filterFieldsets[i].disabled = false;
-    }
-    for (i = 0; i < window.element.filterSelects.length; i++) {
-      window.element.filterSelects[i].disabled = false;
-    }
+    window.element.filterFieldsets.forEach(function (element) {
+      element.disabled = false;
+    });
+
+    window.element.filterSelects.forEach(function (element) {
+      element.disabled = false;
+    });
   };
 
   window.pin.renderPins = function (data) {

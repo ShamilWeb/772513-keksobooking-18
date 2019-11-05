@@ -21,15 +21,17 @@
   };
 
   var fillFeatures = function (card, cardElement) {
-    var popupFeatures = cardElement.querySelector('.popup__features');
-    for (var i = 0; i < card.offer.features.length; i++) {
-      popupFeatures.children[indexFeaturesMap[card.offer.features[i]]].textContent = 'true';
-    }
-    for (i = 0; i < popupFeatures.children.length; i++) {
-      if (!popupFeatures.children[i].textContent) {
-        popupFeatures.children[i].classList.add('hidden');
+    var popupFeatures = cardElement.querySelectorAll('.popup__features li');
+
+    card.offer.features.forEach(function (element) {
+      popupFeatures[indexFeaturesMap[element]].textContent = 'true';
+    });
+
+    popupFeatures.forEach(function (element) {
+      if (!element.textContent) {
+        element.classList.add('hidden');
       }
-    }
+    });
   };
 
   var fillImage = function (card, cardElement) {
@@ -38,11 +40,12 @@
     var image = imagePhoto;
     imagePhoto.remove();
 
-    for (var i = 0; i < card.offer.photos.length; i++) {
+    card.offer.photos.forEach(function (element) {
       var imageClone = image.cloneNode();
-      imageClone.src = card.offer.photos[i];
+      imageClone.src = element;
       popupPhotos.appendChild(imageClone);
-    }
+    });
+
   };
 
   var fillInTheRest = function (card, cardElement) {

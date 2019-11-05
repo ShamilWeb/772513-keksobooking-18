@@ -70,9 +70,9 @@
     }
     if (document.querySelector('.input--not-valid')) {
       var classValid = document.querySelectorAll('.input--not-valid');
-      for (i = 0; i < classValid.length; i++) {
-        classValid[i].classList.remove('input--not-valid')
-      }
+      classValid.forEach(function (element) {
+        element.classList.remove('input--not-valid');
+      });
     }
   }
 
@@ -82,19 +82,22 @@
     } else {
       activatePageFalse();
     }
-    for (var i = 0; i < formFieldsets.length; i++) {
-      formFieldsets[i].disabled = !isActive;
-    }
-    for (i = 0; i < formSelects.length; i++) {
-      formSelects[i].disabled = !isActive;
-    }
 
-    for (i = 0; i < window.element.filterFieldsets.length; i++) {
-      window.element.filterFieldsets[i].disabled = true;
-    }
-    for (i = 0; i < window.element.filterSelects.length; i++) {
-      window.element.filterSelects[i].disabled = true;
-    }
+    formFieldsets.forEach(function (element) {
+      element.disabled = !isActive;
+    });
+
+    formSelects.forEach(function (element) {
+      element.disabled = !isActive;
+    });
+
+    window.element.filterFieldsets.forEach(function (element) {
+      element.disabled = true;
+    });
+
+    window.element.filterSelects.forEach(function (element) {
+      element.isabled = true;
+    });
 
     if (document.querySelector('.map__card')) {
       window.util.removeDomElement('.map__card');

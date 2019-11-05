@@ -50,9 +50,9 @@
     addEventListenerKeydown: function (selector, fact, callback, keyNamber) {
       var domElements = document.querySelectorAll(selector);
       if (fact !== 'keydown') {
-        for (var i = 0; i < domElements.length; i++) {
-          domElements[i].addEventListener(fact, callback);
-        }
+        domElements.forEach(function (element) {
+          element.addEventListener(fact, callback);
+        });
       } else {
         document.addEventListener(fact, function (evt) {
           if (evt.keyCode === keyNamber) {

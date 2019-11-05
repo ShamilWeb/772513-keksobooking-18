@@ -6,7 +6,7 @@
   var MIN_PRICE = 1000;
   var MAX_PRICE = 1000000;
   var roomsNumber = document.querySelector('#room_number');
-  var capacitys = document.querySelector('#capacity');
+  var capacitys = document.querySelectorAll('#capacity option');
   var inputPrice = document.querySelector('#price');
   var type = document.querySelector('#type');
   var formReset = document.querySelector('.ad-form__reset');
@@ -37,32 +37,32 @@
   };
 
   var removeDisabledCapacitys = function () {
-    for (var i = 0; i < capacitys.options.length; i++) {
-      if (capacitys.options[i].disabled) {
-        capacitys.options[i].disabled = false;
+    capacitys.forEach(function (element) {
+      if (element.disabled) {
+        element.disabled = false;
       }
-    }
+    });
   };
 
   var addDisabledCapacitys = function (numberRooms) {
-    for (var i = 0; i < capacitys.options.length; i++) {
-      if (Number(capacitys.options[i].value) > Number(numberRooms) || Number(capacitys.options[i].value) === 0 || MAX_NUMBER_ROOMS === Number(numberRooms)) {
-        capacitys.options[i].disabled = true;
+    capacitys.forEach(function (element) {
+      if (Number(element.value) > Number(numberRooms) || Number(element.value) === 0 || MAX_NUMBER_ROOMS === Number(numberRooms)) {
+        element.disabled = true;
       }
 
       if (MAX_NUMBER_ROOMS === Number(numberRooms)) {
-        capacitys.options[capacitys.options.length - 1].disabled = false
+        capacitys[capacitys.length - 1].disabled = false
       }
-    }
+    });
   };
 
   var switchСapacitys = function () {
-    for (var i = 0; i < capacitys.options.length; i++) {
-      if (capacitys.options[i].selected) {
-        if (capacitys.options[i].disabled) {
-          for (var j = 0; j < capacitys.options.length; j++) {
-            if (!capacitys.options[j].disabled) {
-              capacitys.options[j].selected = true;
+    for (var i = 0; i < capacitys.length; i++) {
+      if (capacitys[i].selected) {
+        if (capacitys[i].disabled) {
+          for (var j = 0; j < capacitys.length; j++) {
+            if (!capacitys[j].disabled) {
+              capacitys[j].selected = true;
               break;
             }
           }
