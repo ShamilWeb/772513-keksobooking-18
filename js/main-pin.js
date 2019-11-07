@@ -6,7 +6,7 @@
   var MAX_WIDTH = window.element.mapOverlay.clientWidth;
   var main = document.querySelector('main');
 
-  var getIf = function (moveEvt, moveEvtClientX, dragX, dragYPageYOffset) {
+  var checkPointerPosition = function (moveEvt, moveEvtClientX, dragX, dragYPageYOffset) {
     return moveEvtClientX > dragX &&
       moveEvtClientX < dragX + window.Constants.MAP_PIN_WIDTH &&
       moveEvt.clientY > dragYPageYOffset &&
@@ -14,7 +14,7 @@
   };
 
   var updateСoordinates = function (moveEvt, moveEvtClientX, dragX, dragY, dragYPageYOffset) {
-    if (getIf(moveEvt, moveEvtClientX, dragX, dragYPageYOffset)) {
+    if (checkPointerPosition(moveEvt, moveEvtClientX, dragX, dragYPageYOffset)) {
       if (dragX < -window.Constants.MAP_PIN_WIDTH / 2) {
         dragX = -window.Constants.MAP_PIN_WIDTH / 2;
       } else if (dragX > MAX_WIDTH - window.Constants.MAP_PIN_WIDTH / 2) {

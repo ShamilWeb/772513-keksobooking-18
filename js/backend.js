@@ -40,7 +40,7 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === XHR_STATUS) {
-        onLoad(xhr.response);
+        onLoad();
       } else {
         onError();
       }

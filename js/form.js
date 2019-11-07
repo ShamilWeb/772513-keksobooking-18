@@ -70,7 +70,7 @@
     }
   };
 
-  var goValueOption = function (value, select) {
+  var setSelectOption = function (value, select) {
     for (var i = 0; i < select.options.length; i++) {
       if (select.options[i].value === value) {
         select.options[i].selected = true;
@@ -81,7 +81,7 @@
 
   var changeSelect = function (select1, select2) {
     var valueOption = window.filter.getValueOption(select1);
-    goValueOption(valueOption, select2);
+    setSelectOption(valueOption, select2);
   };
 
   var changeValueMin = function (valueInputPrice) {
@@ -99,23 +99,34 @@
     changeValueMin(window.filter.getValueOption(type));
   });
 
-  var onDeactivatePage = function (evt) {
+  var removeEventListenerSuccessMessage = function () {
+    document.removeEventListener('keydown', onKeydown);
+    successTemplate.removeEventListener('click', onSuccessTemplateClick);
+    successMessage.removeEventListener('click', onSuccessMessageClick);
+  };
+
+  var onKeydown = function (evt) {
     if (evt.keyCode === window.Constants.ESC_KEYCODE) {
       window.util.getInactivePage(successTemplate);
-      document.removeEventListener('keydown', onDeactivatePage);
+      removeEventListenerSuccessMessage();
     }
   };
 
-  var onSaveForm = function () {
-    window.activation.activatePage(null, false);
+  var onSuccessTemplateClick = function () {
+    window.util.getInactivePage(successTemplate);
+    removeEventListenerSuccessMessage();
+  };
+
+  var onSuccessMessageClick = function (evt) {
+    evt.stopPropagation();
+  };
+
+  var getSuccessfulMessage = function () {
+    window.activation.activatePage(false);
     main.appendChild(successTemplate);
-    document.addEventListener('keydown', onDeactivatePage);
-    successTemplate.addEventListener('click', function () {
-      window.util.getInactivePage(successTemplate);
-    });
-    successMessage.addEventListener('click', function (evt) {
-      evt.stopPropagation();
-    });
+    document.addEventListener('keydown', onKeydown);
+    successTemplate.addEventListener('click', onSuccessTemplateClick);
+    successMessage.addEventListener('click', onSuccessMessageClick);
   };
 
   var addClassInputNotValid = function (input) {
@@ -133,7 +144,7 @@
 
   window.element.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(window.element.form), onSaveForm, window.util.outputErrors);
+    window.backend.save(new FormData(window.element.form), getSuccessfulMessage, window.util.outputErrors);
   });
 
   inputTitle.addEventListener('keydown', function () {

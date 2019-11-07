@@ -8,7 +8,7 @@
   var removeEventListenerPopupClose = function () {
     var popupClose = document.querySelector('.popup__close');
     popupClose.removeEventListener('click', removeCards);
-    document.removeEventListener('keydown', removeCardsEsc);
+    document.removeEventListener('keydown', removeCardsEscape);
   };
 
   var removeCards = function () {
@@ -19,7 +19,7 @@
     }
   };
 
-  var removeCardsEsc = function (evt) {
+  var removeCardsEscape = function (evt) {
     if (evt.keyCode === 27) {
       removeEventListenerPopupClose();
       window.util.removeDomElement('.map__card');
@@ -52,7 +52,7 @@
       window.card.renderCards(cards);
       var popupClose = document.querySelector('.popup__close');
       popupClose.addEventListener('click', removeCards);
-      document.addEventListener('keydown', removeCardsEsc);
+      document.addEventListener('keydown', removeCardsEscape);
     };
     pins.addEventListener('click', window.onPinsClick);
     return pins;
@@ -90,12 +90,12 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < pinsData.length; i++) {
-      var pin = getPinElement(pinsData[i]);
-      pin = addEventListenerPins(pin, pinsData[i]);
-      fragment.appendChild(pin);
       if (i >= MAX_OUTPUT_PIN) {
         break;
       }
+      var pin = getPinElement(pinsData[i]);
+      pin = addEventListenerPins(pin, pinsData[i]);
+      fragment.appendChild(pin);
     }
 
     removeMapPin();
