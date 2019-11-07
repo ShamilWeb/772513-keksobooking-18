@@ -10,7 +10,7 @@
       window.activation.activatePage(false);
     },
     onDeactivatePage: function (evt) {
-      if (evt.keyCode === window.Сonstants.ESC_KEYCODE) {
+      if (evt.keyCode === window.Constants.ESC_KEYCODE) {
         window.util.getInactivePage(window.util.errorTemplateClone);
         document.removeEventListener('keydown', window.util.onDeactivatePage);
       }
@@ -37,8 +37,8 @@
       });
     },
     getCoordinatesPin: function () {
-      var coordinateX = Math.floor(window.element.mapPin.offsetLeft + (window.Сonstants.MAP_PIN_WIDTH / 2));
-      var coordinateY = Math.floor(window.element.mapPin.offsetTop + (window.Сonstants.ACTIVE_PAGE ? window.Сonstants.MAP_PIN_HEIGHT : window.Сonstants.MAP_PIN_ROUND_HEIGHT / 2));
+      var coordinateX = Math.floor(window.element.mapPin.offsetLeft + (window.Constants.MAP_PIN_WIDTH / 2));
+      var coordinateY = Math.floor(window.element.mapPin.offsetTop + (window.Constants.ACTIVE_PAGE ? window.Constants.MAP_PIN_HEIGHT : window.Constants.MAP_PIN_ROUND_HEIGHT / 2));
       window.element.address.value = coordinateX + ', ' + coordinateY;
     },
     removeDomElement: function (selector) {

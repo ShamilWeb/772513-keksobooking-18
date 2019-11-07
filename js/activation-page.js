@@ -32,7 +32,7 @@
   var activatePageTrue = function () {
     window.activation.mapPinMain.removeEventListener('mousedown', onMapPinMainMousedown);
     window.activation.mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
-    window.Сonstants.ACTIVE_PAGE = true;
+    window.Constants.ACTIVE_PAGE = true;
     window.util.getCoordinatesPin();
     if (document.querySelector('.map--faded')) {
       window.element.map.classList.remove('map--faded');
@@ -44,12 +44,14 @@
   var activatePageFalse = function () {
     window.activation.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
     window.activation.mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
-    window.Сonstants.ACTIVE_PAGE = false;
+    window.Constants.ACTIVE_PAGE = false;
     if (document.querySelector('.ad-form__photo').querySelector('img')) {
       var adFormPhotos = document.querySelectorAll('.ad-form__photo');
-      for (var i = 0; i < adFormPhotos.length - 1; i++) {
-        adFormPhotos[i].remove();
-      }
+      adFormPhotos.forEach(function (element, index) {
+        if (index < adFormPhotos.length - 1) {
+          element.remove();
+        }
+      });
     }
     if (window.preview) {
       window.preview.src = 'img/muffin-grey.svg';
@@ -64,9 +66,11 @@
     window.element.mapFilters.classList.add('ad-form--disabled');
     var mapPins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
     if (mapPins) {
-      for (i = 1; i < mapPins.length; i++) {
-        mapPins[i].remove();
-      }
+      mapPins.forEach(function (element, index) {
+        if (index !== 0) {
+          element.remove();
+        }
+      });
     }
     if (document.querySelector('.input--not-valid')) {
       var classValid = document.querySelectorAll('.input--not-valid');
@@ -96,7 +100,7 @@
     });
 
     window.element.filterSelects.forEach(function (element) {
-      element.isabled = true;
+      element.disabled = true;
     });
 
     if (document.querySelector('.map__card')) {

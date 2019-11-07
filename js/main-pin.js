@@ -8,24 +8,24 @@
 
   var getIf = function (moveEvt, moveEvtClientX, dragX, dragYPageYOffset) {
     return moveEvtClientX > dragX &&
-      moveEvtClientX < dragX + window.Сonstants.MAP_PIN_WIDTH &&
+      moveEvtClientX < dragX + window.Constants.MAP_PIN_WIDTH &&
       moveEvt.clientY > dragYPageYOffset &&
-      moveEvt.clientY < dragYPageYOffset + window.Сonstants.MAP_PIN_HEIGHT;
+      moveEvt.clientY < dragYPageYOffset + window.Constants.MAP_PIN_HEIGHT;
   };
 
   var updateСoordinates = function (moveEvt, moveEvtClientX, dragX, dragY, dragYPageYOffset) {
     if (getIf(moveEvt, moveEvtClientX, dragX, dragYPageYOffset)) {
-      if (dragX < -window.Сonstants.MAP_PIN_WIDTH / 2) {
-        dragX = -window.Сonstants.MAP_PIN_WIDTH / 2;
-      } else if (dragX > MAX_WIDTH - window.Сonstants.MAP_PIN_WIDTH / 2) {
-        dragX = MAX_WIDTH - window.Сonstants.MAP_PIN_WIDTH / 2;
+      if (dragX < -window.Constants.MAP_PIN_WIDTH / 2) {
+        dragX = -window.Constants.MAP_PIN_WIDTH / 2;
+      } else if (dragX > MAX_WIDTH - window.Constants.MAP_PIN_WIDTH / 2) {
+        dragX = MAX_WIDTH - window.Constants.MAP_PIN_WIDTH / 2;
       }
       window.activation.mapPinMain.style.left = dragX + 'px';
 
-      if (dragY < MIN_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT) {
-        dragY = MIN_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT;
-      } else if (dragY > MAX_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT) {
-        dragY = MAX_HEIGHT - window.Сonstants.MAP_PIN_HEIGHT;
+      if (dragY < MIN_HEIGHT - window.Constants.MAP_PIN_HEIGHT) {
+        dragY = MIN_HEIGHT - window.Constants.MAP_PIN_HEIGHT;
+      } else if (dragY > MAX_HEIGHT - window.Constants.MAP_PIN_HEIGHT) {
+        dragY = MAX_HEIGHT - window.Constants.MAP_PIN_HEIGHT;
       }
       window.activation.mapPinMain.style.top = dragY + 'px';
     }

@@ -100,7 +100,7 @@
   });
 
   var onDeactivatePage = function (evt) {
-    if (evt.keyCode === window.Сonstants.ESC_KEYCODE) {
+    if (evt.keyCode === window.Constants.ESC_KEYCODE) {
       window.util.getInactivePage(successTemplate);
       document.removeEventListener('keydown', onDeactivatePage);
     }

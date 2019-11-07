@@ -53,8 +53,6 @@
       var popupClose = document.querySelector('.popup__close');
       popupClose.addEventListener('click', removeCards);
       document.addEventListener('keydown', removeCardsEsc);
-      // window.util.addEventListenerKeydown('.popup__close', 'click', window.util.removeDomElementAndClass.bind(null, '.map__card'));
-      // window.util.addEventListenerKeydown('.popup__close', 'keydown', window.util.removeDomElementAndClass.bind(null, '.map__card'), 27);
     };
     pins.addEventListener('click', window.onPinsClick);
     return pins;
@@ -67,10 +65,12 @@
   var removeMapPin = function () {
     var pins = document.querySelector('.map__pins').querySelectorAll('.map__pin');
     if (pins) {
-      for (var i = 1; i < pins.length; i++) {
-        pins[i].removeEventListener('click', window.onPinsClick);
-        pins[i].remove();
-      }
+      pins.forEach(function (element, index) {
+        if (index !== 0) {
+          element.removeEventListener('click', window.onPinsClick);
+          element.remove();
+        }
+      });
     }
   };
 
@@ -89,10 +89,13 @@
     var pinsData = window.sorting(data);
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < MAX_OUTPUT_PIN && i < pinsData.length; i++) {
+    for (var i = 0; i < pinsData.length; i++) {
       var pin = getPinElement(pinsData[i]);
       pin = addEventListenerPins(pin, pinsData[i]);
       fragment.appendChild(pin);
+      if (i >= MAX_OUTPUT_PIN) {
+        break;
+      }
     }
 
     removeMapPin();
